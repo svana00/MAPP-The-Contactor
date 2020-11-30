@@ -16,7 +16,7 @@ const ContactList = ({ contacts }) => (
           id, name, phoneNumber, thumbnailPhoto,
         },
       }) => (
-        <View>
+        <View style={styles.contactContainer}>
           <ContactListItem
             id={id}
             name={name}

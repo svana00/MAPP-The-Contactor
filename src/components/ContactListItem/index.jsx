@@ -6,7 +6,7 @@ import {
 import styles from './styles';
 
 const ContactListItem = ({
-  id, name, phoneNumber, thumbnailPhoto, navigation: { navigate },
+  id, name, phoneNumber, thumbnailPhoto,
 }) => (
   <View>
     <TouchableOpacity>

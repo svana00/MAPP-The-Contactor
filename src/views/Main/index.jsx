@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import MainToolbar from '../../components/MainToolbar';
 import data from '../../resources/data.json';
 import AddContactModal from '../../components/AddContactModal';
@@ -37,7 +37,13 @@ class Main extends React.Component {
     } = this.state;
     return (
       <View style={{ flex: 1 }}>
-        <Text>Hi</Text>
+        <MainToolbar />
+        <ContactList
+          contacts={contacts}
+        />
+        <AddContactModal
+          isOpen={isAddContactModalOpen}
+        />
       </View>
     );
   }
