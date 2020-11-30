@@ -10,7 +10,7 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      contacts: data.contacts,
+      contacts: data.contacts.sort((a, b) => a.name.localeCompare(b.name)),
       thumbnailPhoto: '',
       isAddContactModalOpen: false,
     };

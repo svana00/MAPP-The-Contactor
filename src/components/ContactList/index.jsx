@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, FlatList,
+  View, FlatList, Text,
 } from 'react-native';
 import styles from './styles';
 import ContactListItem from '../ContactListItem';
 
 const ContactList = ({ contacts }) => (
   <View style={styles.listContainer}>
+    <Text style={styles.text}>Favorite Contacts</Text>
     <FlatList
       numColumns={1}
       data={contacts}
@@ -16,7 +17,7 @@ const ContactList = ({ contacts }) => (
           id, name, phoneNumber, thumbnailPhoto,
         },
       }) => (
-        <View style={styles.contactContainer}>
+        <View>
           <ContactListItem
             id={id}
             name={name}
