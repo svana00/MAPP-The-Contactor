@@ -12,8 +12,7 @@ class Main extends React.Component {
     this.state = {
       contacts: data.contacts,
       thumbnailPhoto: '',
-      isAddBoardModalOpen: false,
-      isBeingModified: false,
+      isAddContactModalOpen: false,
     };
   }
 
@@ -34,12 +33,11 @@ class Main extends React.Component {
   render() {
     const {
       contacts,
-      isAddBoardModalOpen,
-      isBeingModified,
+      isAddContactModalOpen,
     } = this.state;
     return (
       <View style={{ flex: 1 }}>
-        <Text>Welcome to the main page</Text>
+        <Text>Hi</Text>
       </View>
     );
   }

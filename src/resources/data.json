@@ -1,16 +1,19 @@
 {
     "contacts": [
         {
+            "id": 1,
             "name": "Róslín",
             "phoneNumber": 5881234,
             "thumbnailPhoto": "https://i.pinimg.com/564x/98/f9/b5/98f9b5986e2d5d8225d97404cf09e1cb.jpg"
         },
         {
+            "id": 2,
             "name": "Svana",
             "phoneNumber": 8470845,
             "thumbnailPhoto": "https://comicvine1.cbsistatic.com/uploads/scale_small/11/111746/5814390-powerpuffgirls-buttercup_large.png"
         },
         {
+            "id": 3,
             "name": "Magga",
             "phoneNumber": 5812345,
             "thumbnailPhoto": "https://images-na.ssl-images-amazon.com/images/I/41T5FNqAYHL._AC_.jpg"
