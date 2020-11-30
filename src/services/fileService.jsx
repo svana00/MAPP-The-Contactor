@@ -22,6 +22,10 @@ export const copyFile = async (file, newLocation) => await onException(() => Fil
   to: newLocation,
 }));
 
+export const loadImage = async (fileName) => await onException(() => FileSystem.readAsStringAsync(`${imageDirectory}/${fileName}`, {
+  encoding: FileSystem.EncodingType.Base64,
+}));
+
 export const addImage = async (imageLocation) => {
   const folderSplit = imageLocation.split('/');
   const fileName = folderSplit[folderSplit.length - 1];
@@ -35,10 +39,6 @@ export const addImage = async (imageLocation) => {
 };
 
 export const remove = async (name) => await onException(() => FileSystem.deleteAsync(`${imageDirectory}/${name}`, { idempotent: true }));
-
-export const loadImage = async (fileName) => await onException(() => FileSystem.readAsStringAsync(`${imageDirectory}/${fileName}`, {
-  encoding: FileSystem.EncodingType.Base64,
-}));
 
 const setupDirectory = async () => {
   const dir = await FileSystem.getInfoAsync(imageDirectory);
