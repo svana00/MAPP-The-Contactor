@@ -4,4 +4,4 @@ export const LIGHT_GREY = '#7a7a7a';
 export const GREY = '#383838';
 export const DARK_GREY = '#292727';
 export const LIGHT_BLUE = '#268bff';
-export const DARK_BLUE = '#147EFB';
+export const DARK_BLUE = '#147EFC';
