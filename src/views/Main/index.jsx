@@ -1,10 +1,12 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, TextInput, SafeAreaView } from 'react-native';
 import MainToolbar from '../../components/MainToolbar';
 import data from '../../resources/data.json';
 import AddContactModal from '../../components/AddContactModal';
 import ContactList from '../../components/ContactList';
+import LoadingScreen from '../../components/LoadingScreen';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
+import styles from './styles';
 
 class Main extends React.Component {
   constructor(props) {
@@ -13,6 +15,7 @@ class Main extends React.Component {
       contacts: data.contacts,
       thumbnailPhoto: '',
       isAddContactModalOpen: false,
+      isLoading: false,
     };
   }
 
@@ -34,10 +37,20 @@ class Main extends React.Component {
     const {
       contacts,
       isAddContactModalOpen,
+      isLoading,
     } = this.state;
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: '#e5e5e5' }}>
         <MainToolbar />
+        <SafeAreaView style={{ backgroundColor: '#e5e5e5' }} />
+        <View style={styles.search}>
+          <TextInput
+            placeholder="Search"
+            placeholderTextColor="#000000"
+            style={styles.search}
+          />
+        </View>
+        {isLoading ? <LoadingScreen /> : null}
         <ContactList
           contacts={contacts}
         />
