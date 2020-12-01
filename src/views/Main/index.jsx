@@ -70,7 +70,8 @@ class Main extends React.Component {
   }
 
   async addContact(name, phoneNumber) {
-    const { contacts, nextId, thumbnailPhoto } = this.state;
+    let { contacts } = this.state;
+    const { nextId, thumbnailPhoto } = this.state;
     if (name.length === 0 || phoneNumber.length === 0 || thumbnailPhoto === '') {
       setTimeout(() => {
         Alert.alert(
@@ -92,10 +93,13 @@ class Main extends React.Component {
       phoneNumber: phoneNumber.toString(),
       image: thumbnailPhoto,
     };
+    contacts = [...contacts, contact];
+    const sortedContacts = await contacts.sort((a, b) => a.name.localeCompare(b.name));
+
     await addContact(contact, nextId);
     this.setState({
       nextId: nextId + 1,
-      contacts: [...contacts, contact],
+      contacts: sortedContacts,
       isAddContactModalOpen: false,
     });
   }
