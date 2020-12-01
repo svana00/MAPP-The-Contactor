@@ -27,4 +27,7 @@ export default StyleSheet.create({
   clear: {
     color: 'transparent',
   },
+  editButton: {
+    height: 200,
+  },
 });

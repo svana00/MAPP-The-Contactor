@@ -14,7 +14,7 @@ const MainToolbar = ({ onAdd, onModify, title }) => (
     </View>
     {onModify ? (
       <TouchableHighlight style={styles.toolbarAction} onPress={onModify}>
-        <AntDesign name="edit" />
+        <AntDesign name="edit" color="white" size={25} />
       </TouchableHighlight>
     )
       : null}

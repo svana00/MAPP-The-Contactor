@@ -1,7 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {
+  View, Text, Image, TouchableOpacity
+} from 'react-native';
 import PropTypes from 'prop-types';
 import MainToolbar from '../../components/MainToolbar';
+import { AntDesign } from '@expo/vector-icons';
+import styles from './styles';
 
 class DetailedView extends React.Component {
   constructor(props) {
@@ -10,6 +14,7 @@ class DetailedView extends React.Component {
       id: 0,
       name: '',
       phoneNumber: '',
+      thumbnailPhoto: '',
       isEditModalOpen: false,
     };
   }
@@ -20,11 +25,17 @@ class DetailedView extends React.Component {
     const contactId = navigation.getParam('contactId', '');
     const contactName = navigation.getParam('contactName', '');
     const contactPhoneNumber = navigation.getParam('contactPhoneNumber', '');
-    this.setState({ id: contactId, name: contactName, phoneNumber: contactPhoneNumber });
+    const contactThumbnailPhoto = navigation.getParam('contactThumbnailPhoto', '');
+    this.setState({
+      id: contactId,
+      name: contactName,
+      phoneNumber: contactPhoneNumber,
+      thumbnailPhoto: contactThumbnailPhoto,
+    });
   }
 
   function() {
-    console.log("I'm supposed to be editing the contact now");
+    console.log('hello, im a function!');
   }
 
   render() {
@@ -32,22 +43,24 @@ class DetailedView extends React.Component {
       id,
       name,
       phoneNumber,
+      thumbnailPhoto,
       isEditModalOpen,
     } = this.state;
     return (
       <View style={{ flex: 1, backgroundColor: '#e5e5e5' }}>
-        <MainToolbar title={name} onModify={this.function} />
-        <Text>
-          Why, hello there
-          {' '}
-          {name}
-          Your Id is
-          {' '}
-          {id}
-          And your Phone Number is
-          {' '}
-          {phoneNumber}
-        </Text>
+        <MainToolbar title="" onModify={this.function} />
+        <View style={{ alignItems: 'center' }}>
+          <Image source={{ uri: thumbnailPhoto }} style={styles.thumbnailImage} resizeMode="cover" />
+        </View>
+        <View style={styles.infoContainer}>
+          <Text style={styles.name}>{name}</Text>
+          <TouchableOpacity>
+            <View style={styles.phone}>
+              <Text style={styles.phoneNumber}>{phoneNumber}</Text>
+              <AntDesign name="edit" color="white" size={25} />
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
