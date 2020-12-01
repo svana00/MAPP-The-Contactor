@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { backgroundPink } from '../../styles/colors';
+import { LIGHT_BLUE } from '../../styles/colors';
 
 export default StyleSheet.create({
   toolbar: {
@@ -7,7 +7,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     height: 80,
-    backgroundColor: backgroundPink,
+    backgroundColor: LIGHT_BLUE,
     borderColor: 'black',
   },
   toolbarAction: {
