@@ -7,7 +7,6 @@ import ContactList from '../../components/ContactList';
 import LoadingScreen from '../../components/LoadingScreen';
 import MainToolbar from '../../components/MainToolbar';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
-import styles from './styles';
 import {
   getAllContacts, addContact, remove, cleanDirectory,
 } from '../../services/fileService';

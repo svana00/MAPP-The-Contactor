@@ -7,6 +7,7 @@ import {
 import filter from 'lodash.filter';
 import styles from './styles';
 import ContactListItem from '../ContactListItem';
+import LoadingContactsImage from '../../resources/images/resourceNotFound.png';
 
 class ContactList extends React.Component {
   constructor(props) {
@@ -84,7 +85,7 @@ class ContactList extends React.Component {
           ListEmptyComponent={() => (
             <View style={{ alignItems: 'center', marginTop: 50, justifyContent: 'center' }}>
               <Text style={styles.title}>No Contacts Found</Text>
-              <Image source={require('../../resources/images/resourceNotFound.png')} style={styles.image} resizeMode="cover" />
+              <Image source={LoadingContactsImage} style={styles.image} resizeMode="cover" />
             </View>
           )}
           renderItem={({
