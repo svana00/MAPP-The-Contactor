@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, TextInput, SafeAreaView } from 'react-native';
+import { View, Alert } from 'react-native';
 import * as Contacts from 'expo-contacts';
-import data from '../../resources/data.json';
 import AddContactModal from '../../components/AddContactModal';
 import ContactList from '../../components/ContactList';
 import LoadingScreen from '../../components/LoadingScreen';
@@ -27,21 +26,21 @@ class Main extends React.Component {
 
   async componentDidMount() {
     // await this.loadContacts();
-    await this._fetchContacts();
-  }
-
-  async _fetchContacts() {
-    const gotten = await getAllContacts();
-    const unsortedContacts = [];
-    for (const i in gotten) {
-      unsortedContacts.push(gotten[i].contact);
-    }
-    const contacts = await unsortedContacts.sort((a, b) => a.name.localeCompare(b.name));
-    this.setState({ isLoading: false, contacts });
+    await this.fetchContacts();
   }
 
   async setData(filteredData) {
     this.setState({ contacts: filteredData });
+  }
+
+  async fetchContacts() {
+    const gotten = await getAllContacts();
+    const unsortedContacts = [];
+    for (let i = 0; i < gotten.length; i += 1) {
+      unsortedContacts.push(gotten[i].contact);
+    }
+    const contacts = await unsortedContacts.sort((a, b) => a.name.localeCompare(b.name));
+    this.setState({ isLoading: false, contacts });
   }
   /*
   async loadContacts() {
@@ -61,10 +60,6 @@ class Main extends React.Component {
   */
 
   async takePhoto() {
-    const { thumbnailPhoto } = this.state;
-    if (thumbnailPhoto === '') {
-      console.log('hi');
-    }
     const photo = await takePhoto();
     if (photo.length > 0) { this.setState({ thumbnailPhoto: photo }); }
   }
@@ -76,22 +71,45 @@ class Main extends React.Component {
 
   async addContact(name, phoneNumber) {
     const { contacts, nextId, thumbnailPhoto } = this.state;
+    if (name.length === 0 || phoneNumber.length === 0 || thumbnailPhoto === '') {
+      setTimeout(() => {
+        Alert.alert(
+          'Blank Fields',
+          'Please do not leave any fields blank',
+          [
+            {
+              text: 'OK',
+              onPress: () => {},
+            },
+          ],
+          { cancelable: false },
+        );
+      }, 500);
+    }
     const contact = {
-      id: nextId.toString(), name, phoneNumber: phoneNumber.toString(), image: thumbnailPhoto,
+      id: nextId.toString(),
+      name,
+      phoneNumber: phoneNumber.toString(),
+      image: thumbnailPhoto,
     };
     await addContact(contact, nextId);
-    this.setState({ nextId: nextId + 1, contacts: [...contacts, contact] });
+    this.setState({
+      nextId: nextId + 1,
+      contacts: [...contacts, contact],
+      isAddContactModalOpen: false,
+    });
   }
 
   async modify(id, name, phoneNumber) {
+    const { thumbnailPhoto, contacts } = this.state;
     let newName = name;
     let newPhone = phoneNumber;
-    let newImage = this.state.thumbnailPhoto;
-    const old = contacts.filter((contact) => contact.id == id);
-    const rest = contacts.filter((contact) => contact.id != id);
-    if (newName == '') { newName = old.name; }
-    if (newPhone == '') { newPhone = old.phoneNumber; }
-    if (newImage == '') { newImage = old.image; }
+    let newImage = thumbnailPhoto;
+    const old = contacts.filter((contact) => contact.id === id);
+    const rest = contacts.filter((contact) => contact.id !== id);
+    if (newName === '') { newName = old.name; }
+    if (newPhone === '') { newPhone = old.phoneNumber; }
+    if (newImage === '') { newImage = old.image; }
     const modified = {
       id, name: newName, phoneNumber: newPhone, image: newImage,
     };
