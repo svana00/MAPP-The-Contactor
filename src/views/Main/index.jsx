@@ -19,7 +19,7 @@ class Main extends React.Component {
       contacts: [],
       thumbnailPhoto: '',
       isAddContactModalOpen: false,
-      isLoading: false,
+      isLoading: true,
       selectedContact: { id: 0, name: '', phoneNumber: '' },
       nextId: 2,
       isBeingModified: false,
@@ -27,19 +27,17 @@ class Main extends React.Component {
   }
 
   async componentDidMount() {
-    // await this.setState({ isLoading: true });
     // await this.loadContacts();
     await this._fetchContacts();
   }
 
   async _fetchContacts() {
-    this.setState({ isLoading: true });
     const gotten = await getAllContacts();
     let unsortedContacts = [];
     for (let i in gotten) {
       unsortedContacts.push(gotten[i].contact)
     }
-    const contacts = unsortedContacts.sort((a, b) => a.name.localeCompare(b.name));
+    const contacts = await unsortedContacts.sort((a, b) => a.name.localeCompare(b.name));
     this.setState({ isLoading: false, contacts });
   }
 
