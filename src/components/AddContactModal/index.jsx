@@ -43,12 +43,13 @@ class AddContactModal extends React.Component {
       >
         <View style={styles.modalStyle}>
           <Text style={styles.modalTitleText}>
-            Create Board
+            Add Contact
           </Text>
           <TextInput
             onChangeText={(text) => this.setState({ name: text })}
             value={name}
             placeholder={isBeingModified ? oldName : 'Enter name'}
+            minLength={2}
             maxLength={29}
             style={styles.textInput}
           />
@@ -56,8 +57,9 @@ class AddContactModal extends React.Component {
             keyboardType="phone-pad"
             onChangeText={(text) => this.setState({ phoneNumber: text })}
             value={phoneNumber}
-            placeholder={isBeingModified ? oldPhone : 'Enter description (optional)'}
-            maxLength={40}
+            placeholder={isBeingModified ? oldPhone : 'Enter phone number'}
+            minLength={7}
+            maxLength={7}
             style={styles.textInput}
           />
           <TouchableOpacity

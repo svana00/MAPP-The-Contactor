@@ -25,7 +25,6 @@ const ContactListItem = ({
       />
       <View>
         <Text style={styles.title}>{name}</Text>
-        <Text style={styles.subTitle}>{phoneNumber}</Text>
       </View>
     </View>
   </TouchableOpacity>
