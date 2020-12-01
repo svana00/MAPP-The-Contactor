@@ -1,9 +1,8 @@
 import React from 'react';
 import {
-  View, Text, Image, TouchableOpacity,
+  View, Text, Image, TouchableOpacity, Linking,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { AntDesign } from '@expo/vector-icons';
 import MainToolbar from '../../components/MainToolbar';
 import styles from './styles';
 
@@ -20,7 +19,6 @@ class DetailedView extends React.Component {
   }
 
   async componentDidMount() {
-    // load board
     const { navigation } = this.props;
     const contactId = navigation.getParam('contactId', '');
     const contactName = navigation.getParam('contactName', '');
@@ -34,10 +32,6 @@ class DetailedView extends React.Component {
     });
   }
 
-  function() {
-    console.log('hello, im a function!');
-  }
-
   render() {
     const {
       id,
@@ -48,16 +42,15 @@ class DetailedView extends React.Component {
     } = this.state;
     return (
       <View style={{ flex: 1, backgroundColor: '#e5e5e5' }}>
-        <MainToolbar title="" onModify={this.function} />
+        <MainToolbar title="" onModify={() => { console.log('hi'); }} />
         <View style={{ alignItems: 'center' }}>
           <Image source={{ uri: thumbnailPhoto }} style={styles.thumbnailImage} resizeMode="cover" />
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.name}>{name}</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => { Linking.openURL(`tel:${phoneNumber}`); }}>
             <View style={styles.phone}>
               <Text style={styles.phoneNumber}>{phoneNumber}</Text>
-              <AntDesign name="edit" color="white" size={25} />
             </View>
           </TouchableOpacity>
         </View>
