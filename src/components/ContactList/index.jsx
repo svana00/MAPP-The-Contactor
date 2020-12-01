@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, FlatList,
+  View, FlatList, Text, Image,
 } from 'react-native';
 import styles from './styles';
 import ContactListItem from '../ContactListItem';
@@ -11,6 +11,12 @@ const ContactList = ({ contacts }) => (
     <FlatList
       numColumns={1}
       data={contacts}
+      ListEmptyComponent={() => (
+        <View style={{ alignItems: 'center', marginTop: 50, justifyContent: 'center' }}>
+          <Text style={styles.title}>No Contacts Found</Text>
+          <Image source={require('../../resources/images/resourceNotFound.png')} style={styles.image} resizeMode="cover" />
+        </View>
+      )}
       renderItem={({
         item: {
           id, name, phoneNumber, thumbnailPhoto,

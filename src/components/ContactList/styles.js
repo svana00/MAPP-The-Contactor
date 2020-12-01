@@ -25,4 +25,15 @@ export default StyleSheet.create({
     flexDirection: 'row',
     paddingBottom: 5,
   },
+  image: {
+    width: 350,
+    height: 200,
+    borderRadius: 20,
+    margin: 10,
+  },
+  title: {
+    fontSize: 20,
+    padding: 20,
+    color: '#2c1c6c',
+  },
 });

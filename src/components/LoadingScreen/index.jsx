@@ -9,7 +9,7 @@ const LoadingScreen = () => (
     justifyContent: 'center',
   }}
   >
-    <ActivityIndicator size="large" color="#bad555" />
+    <ActivityIndicator size="large" color="#fe7624" />
   </View>
 );
 

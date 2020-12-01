@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TextInput, SafeAreaView } from 'react-native';
-import MainToolbar from '../../components/MainToolbar';
+import * as Contacts from 'expo-contacts';
 import data from '../../resources/data.json';
 import AddContactModal from '../../components/AddContactModal';
 import ContactList from '../../components/ContactList';
@@ -17,6 +17,27 @@ class Main extends React.Component {
       isAddContactModalOpen: false,
       isLoading: false,
     };
+  }
+
+  async componentDidMount() {
+    this.setState({ isLoading: true });
+    this.loadContact();
+  }
+
+  async loadContact() {
+    const permission = await Contacts.requestPermissionsAsync();
+
+    if (permission !== 'granted') {
+      return;
+    }
+    const { contactData } = await Contacts.getContactsAsync({
+      fields: [Contacts.Fields.Name,
+        Contacts.Fields.PhoneNumbers,
+        Contacts.Fields.Image,
+      ],
+    });
+    console.log(contactData);
+    this.setState({ contacts: contactData, isLoading: false });
   }
 
   async takePhoto() {
@@ -41,7 +62,6 @@ class Main extends React.Component {
     } = this.state;
     return (
       <View style={{ flex: 1, backgroundColor: '#e5e5e5' }}>
-        <MainToolbar />
         <SafeAreaView style={{ backgroundColor: '#e5e5e5' }} />
         <View style={styles.search}>
           <TextInput
