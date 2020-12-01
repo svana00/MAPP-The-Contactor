@@ -10,6 +10,7 @@ class DetailedView extends React.Component {
       id: 0,
       name: '',
       phoneNumber: '',
+      isEditModalOpen: false,
     };
   }
 
@@ -22,15 +23,20 @@ class DetailedView extends React.Component {
     this.setState({ id: contactId, name: contactName, phoneNumber: contactPhoneNumber });
   }
 
+  function() {
+    console.log("I'm supposed to be editing the contact now");
+  }
+
   render() {
     const {
       id,
       name,
       phoneNumber,
+      isEditModalOpen,
     } = this.state;
     return (
       <View style={{ flex: 1, backgroundColor: '#e5e5e5' }}>
-        <MainToolbar />
+        <MainToolbar title={name} onModify={this.function} />
         <Text>
           Why, hello there
           {' '}
