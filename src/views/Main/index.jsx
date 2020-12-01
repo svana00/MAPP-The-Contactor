@@ -6,9 +6,7 @@ import ContactList from '../../components/ContactList';
 import LoadingScreen from '../../components/LoadingScreen';
 import MainToolbar from '../../components/MainToolbar';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
-import {
-  getAllContacts, addContact, remove, cleanDirectory,
-} from '../../services/fileService';
+import {getAllContacts, addContact, remove, cleanDirectory} from '../../services/fileService';
 
 class Main extends React.Component {
   constructor(props) {
@@ -119,23 +117,23 @@ class Main extends React.Component {
     this.setState({isLoading: false});
   }
 
-  async modify(id, name, phoneNumber) {
-    const { thumbnailPhoto, contacts } = this.state;
-    let newName = name;
-    let newPhone = phoneNumber;
-    let newImage = thumbnailPhoto;
-    const old = contacts.filter((contact) => contact.id === id);
-    const rest = contacts.filter((contact) => contact.id !== id);
-    if (newName === '') { newName = old.name; }
-    if (newPhone === '') { newPhone = old.phoneNumber; }
-    if (newImage === '') { newImage = old.image; }
-    const modified = {
-      id, name: newName, phoneNumber: newPhone, image: newImage,
-    };
-    await this.setState({ contacts: [...rest, modified] });
-    await addContact(modified, id);
-    await remove(old.name, id);
-  }
+  // async modify(id, name, phoneNumber) {
+  //   const { thumbnailPhoto, contacts } = this.state;
+  //   let newName = name;
+  //   let newPhone = phoneNumber;
+  //   let newImage = thumbnailPhoto;
+  //   const old = contacts.filter((contact) => contact.id === id);
+  //   const rest = contacts.filter((contact) => contact.id !== id);
+  //   if (newName === '') { newName = old.name; }
+  //   if (newPhone === '') { newPhone = old.phoneNumber; }
+  //   if (newImage === '') { newImage = old.image; }
+  //   const modified = {
+  //     id, name: newName, phoneNumber: newPhone, image: newImage,
+  //   };
+  //   await this.setState({ contacts: [...rest, modified] });
+  //   await addContact(modified, id);
+  //   await remove(old.name, id);
+  // }
 
   render() {
     const {
