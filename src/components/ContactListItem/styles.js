@@ -23,4 +23,10 @@ export default StyleSheet.create({
     width: 200,
     padding: 10,
   },
+  subTitle: {
+    fontSize: 15,
+    width: 200,
+    padding: 10,
+    paddingHorizontal: 0,
+  },
 });
