@@ -7,13 +7,14 @@ import {
 import filter from 'lodash.filter';
 import styles from './styles';
 import ContactListItem from '../ContactListItem';
+import LoadingContactsImage from '../../resources/images/resourceNotFound.png';
 
 class ContactList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       query: '',
-      modifiedData: props.contacts,
+      modifiedData: this.props.contacts,
     };
   }
 
@@ -38,7 +39,6 @@ class ContactList extends React.Component {
   }
 
   contains(name, query) {
-
     if (name.includes(query)) {
       return true;
     }
@@ -50,7 +50,6 @@ class ContactList extends React.Component {
     const {
       query,
     } = this.state;
-
     return (
       <View
         style={{
@@ -86,7 +85,7 @@ class ContactList extends React.Component {
           ListEmptyComponent={() => (
             <View style={{ alignItems: 'center', marginTop: 50, justifyContent: 'center' }}>
               <Text style={styles.title}>No Contacts Found</Text>
-              <Image source={require('../../resources/images/resourceNotFound.png')} style={styles.image} resizeMode="cover" />
+              <Image source={LoadingContactsImage} style={styles.image} resizeMode="cover" />
             </View>
           )}
           renderItem={({
@@ -114,7 +113,7 @@ ContactList.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    phoneNumber: PropTypes.number,
+    phoneNumber: PropTypes.string,
     thumbnailPhoto: PropTypes.string.isRequired,
   })).isRequired,
 };

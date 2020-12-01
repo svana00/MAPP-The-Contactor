@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { LIGHT_BLUE, LIGHT_PURPLE, WHITE } from '../../styles/colors';
+import { LIGHT_PURPLE, WHITE } from '../../styles/colors';
 
 export default StyleSheet.create({
   toolbar: {
