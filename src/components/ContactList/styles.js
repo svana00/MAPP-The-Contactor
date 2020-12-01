@@ -3,27 +3,14 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   listContainer: {
     flex: 1,
-    justifyContent: 'space-between',
+    backgroundColor: '#f8f8f8',
     alignItems: 'center',
   },
-  contactContainer: {
-    borderWidth: 2,
-    borderColor: 'lightgrey',
-    marginLeft: 5,
-    marginRight: 5,
-    marginBottom: 20,
-    marginTop: 10,
-    borderRadius: 10,
-  },
-  contactItem: {
-    padding: 10,
-  },
-  buttonContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingBottom: 5,
+  text: {
+    fontSize: 20,
+    color: '#101010',
+    marginTop: 30,
+    fontWeight: '700',
   },
   image: {
     width: 350,

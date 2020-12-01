@@ -17,28 +17,22 @@ export const cleanDirectory = async () => {
   await FileSystem.deleteAsync(contactDirectory);
 };
 
-export const copyFile = async (file, newLocation) => await onException(() => FileSystem.copyAsync({
-  from: file,
-  to: newLocation,
-}));
+export const loadContact = async (fileName) => await onException(() => FileSystem.readAsStringAsync(`${contactDirectory}/${fileName}`));
 
-export const loadContact = async (fileName) => await onException(() => FileSystem.readAsStringAsync(`${contactDirectory}/${fileName}`, {
-  encoding: FileSystem.EncodingType.Base64,
-}));
+export const addContact = async (contact, id) => {
+  const fileName = contact.name.trim() + "-" + id + ".json";
+  console.log(fileName);
+  fileUri = `${contactDirectory}/${fileName}`;
+  console.log(fileUri);
+  contents = JSON.stringify(contact);
+  console.log("IM HERE")
+  await FileSystem.writeAsStringAsync(fileUri, contents)
+  console.log("I SHOULD BW HWERE")
+}
 
-export const addContact = async (contactLocation) => {
-  const folderSplit = contactLocation.split('/');
-  const fileName = folderSplit[folderSplit.length - 1];
-  await onException(() => copyFile(contactLocation, `${contactDirectory}/${fileName}`));
-
-  return {
-    name: fileName,
-    type: 'contact',
-    file: await loadContact(fileName),
-  };
-};
-
-export const remove = async (name) => await onException(() => FileSystem.deleteAsync(`${contactDirectory}/${name}`, { idempotent: true }));
+export const remove = async (name, id) => {
+  const fileName = name.trim() + "-" + id + ".json";
+  await onException(() => FileSystem.deleteAsync(`${contactDirectory}/${fileName}`, { idempotent: true }))};
 
 const setupDirectory = async () => {
   const dir = await FileSystem.getInfoAsync(contactDirectory);
@@ -52,9 +46,8 @@ export const getAllContacts = async () => {
   await setupDirectory();
 
   const result = await onException(() => FileSystem.readDirectoryAsync(contactDirectory));
+  console.log("HE", result)
   return Promise.all(result.map(async (fileName) => ({
-    name: fileName,
-    type: 'contact',
-    file: await loadContact(fileName),
+    contact: JSON.parse(await loadContact(fileName)),
   })));
 };
