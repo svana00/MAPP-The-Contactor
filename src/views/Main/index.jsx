@@ -30,11 +30,12 @@ class Main extends React.Component {
   async _fetchContacts() {
     this.setState({isLoading: true});
     const gotten = await getAllContacts();
-    var contacts = []
+    var unsortedContacts = []
     console.log("PABBI", contacts);
     for (var i in gotten){
-      contacts.push(gotten[i].contact)
+      unsortedContacts.push(gotten[i].contact)
     }
+    const contacts = unsortedContacts.sort((a, b) => a.name.localeCompare(b.name))
     this.setState({isLoading: false, contacts})
   }
 

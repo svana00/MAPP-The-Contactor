@@ -2,7 +2,8 @@
 
 ## Description
 
-Second assignment in MAPP.
+Second assignment in the App Development course in RU, fall 2020.
+We are making a contacts application that keeps track of contacts in your phone.
 
 The team consists of 3 people:
 
