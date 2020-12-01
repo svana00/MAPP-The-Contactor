@@ -45,6 +45,24 @@ class AddContactModal extends React.Component {
           <Text style={styles.modalTitleText}>
             Add Contact
           </Text>
+          <View style={styles.buttonContainer}>
+            <View>
+              <TouchableOpacity
+                onPress={() => takePhoto()}
+                style={styles.buttonItem}
+              >
+                <Entypo style={styles.icon} name="camera" />
+              </TouchableOpacity>
+            </View>
+            <View>
+              <TouchableOpacity
+                onPress={() => selectFromCameraRoll()}
+                style={styles.buttonItem}
+              >
+                <Entypo style={styles.icon} name="image" />
+              </TouchableOpacity>
+            </View>
+          </View>
           <TextInput
             onChangeText={(text) => this.setState({ name: text })}
             value={name}
@@ -62,16 +80,6 @@ class AddContactModal extends React.Component {
             maxLength={7}
             style={styles.textInput}
           />
-          <TouchableOpacity
-            onPress={() => takePhoto()}
-          >
-            <Entypo style={styles.icon} name="camera" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => selectFromCameraRoll()}
-          >
-            <Entypo style={styles.icon} name="image" />
-          </TouchableOpacity>
           <TouchableHighlight
             style={styles.button}
             onPress={() => { this.handlePress(); }}

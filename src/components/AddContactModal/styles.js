@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   icon: {
     fontSize: 45,
-    marginTop: 15,
-    marginBottom: 15,
+    marginTop: 10,
+    marginBottom: 10,
   },
   text: {
     fontSize: 20,
@@ -27,13 +27,14 @@ export default StyleSheet.create({
     borderWidth: 1,
     width: 200,
     textAlign: 'center',
-    margin: 2,
+    margin: 6,
   },
   button: {
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 4,
     paddingRight: 4,
+    marginTop: 10,
     marginBottom: 8,
     borderColor: 'white',
     borderWidth: 2,
@@ -43,5 +44,14 @@ export default StyleSheet.create({
   buttonText: {
     fontWeight: 'bold',
     color: 'white',
+  },
+  buttonItem: {
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  buttonContainer: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
