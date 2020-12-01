@@ -76,9 +76,6 @@ class ContactList extends React.Component {
     const {
       modifiedData,
     } = this.state;
-    console.log('hi');
-    console.log(modifiedData);
-    console.log('bye');
     return (
       <View style={styles.listContainer}>
         <FlatList
@@ -116,7 +113,7 @@ ContactList.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    phoneNumber: PropTypes.number,
+    phoneNumber: PropTypes.string,
     thumbnailPhoto: PropTypes.string.isRequired,
   })).isRequired,
 };

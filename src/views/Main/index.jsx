@@ -115,11 +115,17 @@ class Main extends React.Component {
           onAdd={() => this.setState({ isAddContactModalOpen: true })}
           title="Contacts"
         />
-        {isLoading ? <LoadingScreen /> : null}
-        <ContactList
-          contacts={contacts}
-          updateData={(filteredData) => this.setData(filteredData)}
-        />
+        {isLoading
+          ? <LoadingScreen />
+          :
+          (<>
+            <ContactList
+              contacts={contacts}
+              updateData={(filteredData) => this.setData(filteredData)}
+            />
+          </>
+          )}
+
         <AddContactModal
           id={selectedContact.id}
           oldName={selectedContact.name}
