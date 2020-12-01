@@ -30,22 +30,6 @@ class Main extends React.Component {
     await this._fetchContacts();
   }
 
-  async loadContacts() {
-    const permission = await Contacts.requestPermissionsAsync();
-
-    if (permission !== 'granted') {
-      return;
-    }
-    const { contactData } = await Contacts.getContactsAsync({
-      fields: [Contacts.Fields.Name,
-        Contacts.Fields.PhoneNumbers,
-        Contacts.Fields.Image,
-      ],
-    });
-    console.log(contactData);
-    this.setState({ contacts: contactData, isLoading: false });
-  }
-
   async _fetchContacts() {
     this.setState({isLoading: true});
     const gotten = await getAllContacts();
@@ -61,6 +45,24 @@ class Main extends React.Component {
   async setData(filteredData) {
     this.setState({ contacts: filteredData });
   }
+
+  /*
+  async loadContacts() {
+    const permission = await Contacts.requestPermissionsAsync();
+
+    if (permission !== 'granted') {
+      return;
+    }
+    const { contactData } = await Contacts.getContactsAsync({
+      fields: [Contacts.Fields.Name,
+        Contacts.Fields.PhoneNumbers,
+        Contacts.Fields.Image,
+      ],
+    });
+    console.log(contactData);
+    this.setState({ contacts: contactData, isLoading: false });
+  }
+  */
 
   async takePhoto() {
     const { thumbnailPhoto } = this.state;

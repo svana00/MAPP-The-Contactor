@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { LIGHT_BLUE } from '../../styles/colors';
+import { LIGHT_BLUE, LIGHT_PURPLE, WHITE } from '../../styles/colors';
 
 export default StyleSheet.create({
   toolbar: {
@@ -7,7 +7,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     height: 80,
-    backgroundColor: LIGHT_BLUE,
+    backgroundColor: LIGHT_PURPLE, // LIGHT_BLUE,
     borderColor: 'black',
   },
   toolbarAction: {
@@ -16,12 +16,12 @@ export default StyleSheet.create({
   },
   toolbarActionText: {
     fontWeight: 'bold',
-    color: 'black',
+    color: WHITE,
     fontSize: 20,
   },
   toolbarAddText: {
     fontWeight: 'bold',
-    color: 'green',
+    color: WHITE,
     fontSize: 25,
   },
   clear: {

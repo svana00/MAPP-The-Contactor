@@ -5,3 +5,6 @@ export const GREY = '#383838';
 export const DARK_GREY = '#292727';
 export const LIGHT_BLUE = '#268bff';
 export const DARK_BLUE = '#147EFC';
+export const LIGHT_PURPLE = '#6c5d96';
+export const DARK_PURPLE = '#2e186a';
+export const ORANGE = '#fe7624';

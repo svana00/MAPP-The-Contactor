@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
-// import styles from './styles';
+import { ORANGE } from '../../styles/colors';
 
 const LoadingScreen = () => (
   <View style={{
@@ -9,7 +9,7 @@ const LoadingScreen = () => (
     justifyContent: 'center',
   }}
   >
-    <ActivityIndicator size="large" color="#fe7624" />
+    <ActivityIndicator size="large" color={ORANGE} />
   </View>
 );
 
