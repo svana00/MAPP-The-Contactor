@@ -25,8 +25,8 @@ class Main extends React.Component {
   }
 
   async componentDidMount() {
-    await this.setState({ isLoading: true });
-    await this.loadContacts();
+    // await this.setState({ isLoading: true });
+    // await this.loadContacts();
     await this._fetchContacts();
   }
 
@@ -35,7 +35,7 @@ class Main extends React.Component {
     const gotten = await getAllContacts();
     let unsortedContacts = [];
     console.log('PABBI', contacts);
-    for (var i in gotten) {
+    for (let i in gotten) {
       unsortedContacts.push(gotten[i].contact)
     }
     const contacts = unsortedContacts.sort((a, b) => a.name.localeCompare(b.name))
@@ -45,7 +45,6 @@ class Main extends React.Component {
   async setData(filteredData) {
     this.setState({ contacts: filteredData });
   }
-
   /*
   async loadContacts() {
     const permission = await Contacts.requestPermissionsAsync();
@@ -63,6 +62,7 @@ class Main extends React.Component {
     this.setState({ contacts: contactData, isLoading: false });
   }
   */
+
 
   async takePhoto() {
     const { thumbnailPhoto } = this.state;
