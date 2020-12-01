@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
 
-  View, FlatList, Text, TextInput,
+  View, FlatList, Text, TextInput, Image,
 } from 'react-native';
 import filter from 'lodash.filter';
 import styles from './styles';
 import ContactListItem from '../ContactListItem';
-
 
 class ContactList extends React.Component {
   constructor(props) {
@@ -93,6 +92,7 @@ class ContactList extends React.Component {
               <Text style={styles.title}>No Contacts Found</Text>
               <Image source={require('../../resources/images/resourceNotFound.png')} style={styles.image} resizeMode="cover" />
             </View>
+          )}
           renderItem={({
             item: {
               id, name, phoneNumber, thumbnailPhoto,

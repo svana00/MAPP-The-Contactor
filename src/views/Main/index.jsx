@@ -5,6 +5,7 @@ import data from '../../resources/data.json';
 import AddContactModal from '../../components/AddContactModal';
 import ContactList from '../../components/ContactList';
 import LoadingScreen from '../../components/LoadingScreen';
+import MainToolbar from '../../components/MainToolbar';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
 import styles from './styles';
 import { getAllContacts, addContact, remove } from '../../services/fileService';
