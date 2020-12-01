@@ -102,6 +102,19 @@ class Main extends React.Component {
       contacts: sortedContacts,
       isAddContactModalOpen: false,
     });
+    setTimeout(() => {
+      Alert.alert(
+        'Contact created',
+        'Your contact has been added to the system',
+        [
+          {
+            text: 'OK',
+            onPress: () => {},
+          },
+        ],
+        { cancelable: false },
+      );
+    }, 500);
   }
 
   async modify(id, name, phoneNumber) {

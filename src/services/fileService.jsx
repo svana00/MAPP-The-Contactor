@@ -21,8 +21,8 @@ export const loadContact = async (fileName) => await onException(() => FileSyste
 
 export const addContact = async (contact, id) => {
   const fileName = `${contact.name.trim()}-${id}.json`;
-  fileUri = `${contactDirectory}/${fileName}`;
-  contents = JSON.stringify(contact);
+  const fileUri = `${contactDirectory}/${fileName}`;
+  const contents = JSON.stringify(contact);
   await FileSystem.writeAsStringAsync(fileUri, contents);
 };
 

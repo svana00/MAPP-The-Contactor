@@ -8,13 +8,14 @@ import filter from 'lodash.filter';
 import styles from './styles';
 import ContactListItem from '../ContactListItem';
 import LoadingContactsImage from '../../resources/images/resourceNotFound.png';
+import contains from '../../helpers/containsSubstring';
 
 class ContactList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       query: '',
-      modifiedData: this.props.contacts,
+      modifiedData: props.contacts,
     };
   }
 
@@ -23,7 +24,7 @@ class ContactList extends React.Component {
       contacts,
     } = this.props;
     const formattedQuery = text.toLowerCase();
-    const filteredData = filter(contacts, (contact) => this.contains(
+    const filteredData = filter(contacts, (contact) => contains(
       contact.name.toLowerCase(), formattedQuery,
     ));
     this.updateModifiedData(filteredData);
@@ -36,14 +37,6 @@ class ContactList extends React.Component {
 
   updateModifiedData(filteredData) {
     this.setState({ modifiedData: filteredData });
-  }
-
-  contains(name, query) {
-    if (name.includes(query)) {
-      return true;
-    }
-
-    return false;
   }
 
   renderHeader() {
@@ -83,7 +76,7 @@ class ContactList extends React.Component {
           numColumns={1}
           data={modifiedData}
           ListEmptyComponent={() => (
-            <View style={{ alignItems: 'center', marginTop: 50, justifyContent: 'center' }}>
+            <View style={{ alignItems: 'center', marginTop: 30, justifyContent: 'center' }}>
               <Text style={styles.title}>No Contacts Found</Text>
               <Image source={LoadingContactsImage} style={styles.image} resizeMode="cover" />
             </View>
