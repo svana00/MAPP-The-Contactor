@@ -34,19 +34,15 @@ class ContactList extends React.Component {
   }
 
   updateModifiedData(filteredData) {
-    console.log(filteredData);
     this.setState({ modifiedData: filteredData });
   }
 
   contains(name, query) {
-    console.log(name);
 
     if (name.includes(query)) {
-      console.log("here");
       return true;
     }
 
-    console.log("here2");
     return false;
   }
 

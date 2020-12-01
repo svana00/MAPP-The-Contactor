@@ -36,7 +36,6 @@ class Main extends React.Component {
     this.setState({isLoading: true});
     const gotten = await getAllContacts();
     let unsortedContacts = [];
-    console.log('PABBI', contacts);
     for (let i in gotten) {
       unsortedContacts.push(gotten[i].contact)
     }
@@ -60,7 +59,6 @@ class Main extends React.Component {
         Contacts.Fields.Image,
       ],
     });
-    console.log(contactData);
     this.setState({ contacts: contactData, isLoading: false });
   }
   */
@@ -81,13 +79,10 @@ class Main extends React.Component {
   }
 
   async addContact(name, phoneNumber) {
-    console.log('IM HERE');
     const { contacts, nextId, thumbnailPhoto } = this.state;
-    console.log('WOMAN', thumbnailPhoto);
     const contact = {
-      id: nextId, name, phoneNumber, image: thumbnailPhoto,
+      id: nextId.toString(), name, phoneNumber.toString(), image: thumbnailPhoto,
     };
-    console.log('NOW IM THERE');
     await addContact(contact, nextId);
     this.setState({ nextId: nextId + 1, contacts: [...contacts, contact] });
   }
@@ -115,7 +110,6 @@ class Main extends React.Component {
       selectedContact,
       isBeingModified,
     } = this.state;
-    console.log('Hearthstone', contacts);
     return (
       <View style={{ flex: 1, backgroundColor: '#e5e5e5' }}>
         <MainToolbar
