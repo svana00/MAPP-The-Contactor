@@ -33,9 +33,9 @@ class Main extends React.Component {
 
   async _fetchContacts() {
     const gotten = await getAllContacts();
-    let unsortedContacts = [];
-    for (let i in gotten) {
-      unsortedContacts.push(gotten[i].contact)
+    const unsortedContacts = [];
+    for (const i in gotten) {
+      unsortedContacts.push(gotten[i].contact);
     }
     const contacts = await unsortedContacts.sort((a, b) => a.name.localeCompare(b.name));
     this.setState({ isLoading: false, contacts });
@@ -117,13 +117,13 @@ class Main extends React.Component {
         />
         {isLoading
           ? <LoadingScreen />
-          :
-          (<>
-            <ContactList
-              contacts={contacts}
-              updateData={(filteredData) => this.setData(filteredData)}
-            />
-          </>
+          : (
+            <>
+              <ContactList
+                contacts={contacts}
+                updateData={(filteredData) => this.setData(filteredData)}
+              />
+            </>
           )}
 
         <AddContactModal

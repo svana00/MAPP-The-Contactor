@@ -38,7 +38,6 @@ class ContactList extends React.Component {
   }
 
   contains(name, query) {
-
     if (name.includes(query)) {
       return true;
     }

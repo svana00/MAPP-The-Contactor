@@ -7,7 +7,7 @@ import { withNavigation } from 'react-navigation';
 import styles from './styles';
 
 const ContactListItem = ({
-  name, thumbnailPhoto, phoneNumber
+  name, thumbnailPhoto, phoneNumber,
 }) => (
   <TouchableOpacity
     onPress={() => navigate('DetailedView', {
