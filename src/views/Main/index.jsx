@@ -7,16 +7,35 @@ import ContactList from '../../components/ContactList';
 import LoadingScreen from '../../components/LoadingScreen';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
 import styles from './styles';
+import {getAllContacts,addContact, remove} from '../../services/fileService';
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      contacts: data.contacts,
+      contacts: [],
       thumbnailPhoto: '',
-      isAddContactModalOpen: false,
+      isAddContactModalOpen: true,
       isLoading: false,
+      selectedContact: {id:0, name:"", phoneNumber:""},
+      nextId: 2,
+      isBeingModified: false,
     };
+  }
+
+  async componentDidMount() {
+    await this._fetchContacts();
+  }
+
+  async _fetchContacts() {
+    this.setState({isLoading: true});
+    const gotten = await getAllContacts();
+    var contacts = []
+    console.log("PABBI", contacts);
+    for (var i in gotten){
+      contacts.push(gotten[i].contact)
+    }
+    this.setState({isLoading: false, contacts})
   }
 
   async takePhoto() {
@@ -33,12 +52,40 @@ class Main extends React.Component {
     if (photo.length > 0) { this.setState({ thumbnailPhoto: photo }); }
   }
 
+  async addContact(name, phoneNumber) {
+    console.log("IM HERE")
+    const {contacts, nextId, thumbnailPhoto} = this.state;
+    console.log("WOMAN", thumbnailPhoto);
+    const contact = {id: nextId, name: name, phoneNumber: phoneNumber, image: thumbnailPhoto};
+    console.log("NOW IM THERE")
+    await addContact(contact, nextId);
+    this.setState({nextId: nextId + 1, contacts: [...contacts, contact]})
+  }
+
+  async modify(id,name,phoneNumber) {
+    var newName = name;
+    var newPhone = phoneNumber;
+    var newImage = this.state.thumbnailPhoto;
+    const old = contacts.filter((contact) => contact.id == id);
+    const rest = contacts.filter(contact => contact.id != id)
+    if (newName == ""){ newName = old.name}
+    if (newPhone == ""){newPhoneNumber = old.phoneNumber}
+    if (newImage == ""){newImage = old.image}
+    const modified = {id: id, name: newName, phoneNumber: newPhone, image: newImage};
+    await this.setState({contacts: [...rest, modified]})
+    await addContact(modified, id);
+    await remove(old.name, id)
+  }
+
   render() {
     const {
       contacts,
       isAddContactModalOpen,
       isLoading,
+      selectedContact,
+      isBeingModified,
     } = this.state;
+    console.log("Hearthstone", contacts)
     return (
       <View style={{ flex: 1, backgroundColor: '#e5e5e5' }}>
         <MainToolbar />
@@ -55,7 +102,16 @@ class Main extends React.Component {
           contacts={contacts}
         />
         <AddContactModal
+          id = {selectedContact.id}
+          oldName = {selectedContact.name}
+          oldPhone = {selectedContact.phoneNumber}
           isOpen={isAddContactModalOpen}
+          closeModal={() => this.setState({isAddContactModalOpen: false})}
+          takePhoto = {() => this.takePhoto()}
+          selectFromCameraRoll = {() => this.selectFromCameraRoll()}
+          onSubmit={(name, phoneNumber) => this.addContact(name, phoneNumber)}
+          isBeingModified = {isBeingModified}
+          onModify={(id, name, phoneNumber) => this.modify(id, name, phoneNumber)}
         />
       </View>
     );
