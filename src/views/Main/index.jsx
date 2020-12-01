@@ -9,7 +9,7 @@ import MainToolbar from '../../components/MainToolbar';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
 import styles from './styles';
 import {
-  getAllContacts, addContact, remove, cleanDirectory
+  getAllContacts, addContact, remove, cleanDirectory,
 } from '../../services/fileService';
 
 class Main extends React.Component {
@@ -33,15 +33,15 @@ class Main extends React.Component {
   }
 
   async _fetchContacts() {
-    this.setState({isLoading: true});
+    this.setState({ isLoading: true });
     const gotten = await getAllContacts();
-    let unsortedContacts = [];
+    const unsortedContacts = [];
     console.log('PABBI', contacts);
-    for (let i in gotten) {
-      unsortedContacts.push(gotten[i].contact)
+    for (const i in gotten) {
+      unsortedContacts.push(gotten[i].contact);
     }
-    const contacts = unsortedContacts.sort((a, b) => a.name.localeCompare(b.name))
-    this.setState({isLoading: false, contacts})
+    const contacts = unsortedContacts.sort((a, b) => a.name.localeCompare(b.name));
+    this.setState({ isLoading: false, contacts });
   }
 
   async setData(filteredData) {
@@ -64,7 +64,6 @@ class Main extends React.Component {
     this.setState({ contacts: contactData, isLoading: false });
   }
   */
-
 
   async takePhoto() {
     const { thumbnailPhoto } = this.state;
@@ -97,11 +96,13 @@ class Main extends React.Component {
     const newPhone = phoneNumber;
     let newImage = this.state.thumbnailPhoto;
     const old = contacts.filter((contact) => contact.id == id);
-    const rest = contacts.filter(contact => contact.id != id);
+    const rest = contacts.filter((contact) => contact.id != id);
     if (newName == '') { newName = old.name; }
-    if (newPhone == '') {newPhoneNumber = old.phoneNumber; }
-    if (newImage == '') {newImage = old.image; }
-    const modified = {id, name: newName, phoneNumber: newPhone, image: newImage};
+    if (newPhone == '') { newPhoneNumber = old.phoneNumber; }
+    if (newImage == '') { newImage = old.image; }
+    const modified = {
+      id, name: newName, phoneNumber: newPhone, image: newImage,
+    };
     await this.setState({ contacts: [...rest, modified] });
     await addContact(modified, id);
     await remove(old.name, id);

@@ -42,11 +42,11 @@ class ContactList extends React.Component {
     console.log(name);
 
     if (name.includes(query)) {
-      console.log("here");
+      console.log('here');
       return true;
     }
 
-    console.log("here2");
+    console.log('here2');
     return false;
   }
 
