@@ -104,10 +104,10 @@ class ContactList extends React.Component {
 
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     phoneNumber: PropTypes.string,
-    thumbnailPhoto: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
   })).isRequired,
 };
 

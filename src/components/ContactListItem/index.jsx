@@ -31,7 +31,7 @@ const ContactListItem = ({
 );
 
 ContactListItem.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   thumbnailPhoto: PropTypes.string.isRequired,
   phoneNumber: PropTypes.string.isRequired,

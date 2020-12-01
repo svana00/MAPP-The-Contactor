@@ -19,7 +19,7 @@ class Main extends React.Component {
       isAddContactModalOpen: false,
       isLoading: true,
       selectedContact: { id: 0, name: '', phoneNumber: '' },
-      nextId: 2,
+      nextId: 0,
       isBeingModified: false,
     };
   }
@@ -40,7 +40,7 @@ class Main extends React.Component {
       unsortedContacts.push(gotten[i].contact);
     }
     const contacts = await unsortedContacts.sort((a, b) => a.name.localeCompare(b.name));
-    this.setState({ isLoading: false, contacts });
+    this.setState({ isLoading: false, contacts, nextId: contacts.length + 1});
   }
   /*
   async loadContacts() {
@@ -70,6 +70,7 @@ class Main extends React.Component {
   }
 
   async addContact(name, phoneNumber) {
+    this.setState({isLoading: true});
     let { contacts } = this.state;
     const { nextId, thumbnailPhoto } = this.state;
     if (name.length === 0 || phoneNumber.length === 0 || thumbnailPhoto === '') {
@@ -96,7 +97,7 @@ class Main extends React.Component {
     contacts = [...contacts, contact];
     const sortedContacts = await contacts.sort((a, b) => a.name.localeCompare(b.name));
 
-    await addContact(contact, nextId);
+    await addContact(contact, nextId.toString());
     this.setState({
       nextId: nextId + 1,
       contacts: sortedContacts,
@@ -115,6 +116,7 @@ class Main extends React.Component {
         { cancelable: false },
       );
     }, 500);
+    this.setState({isLoading: false});
   }
 
   async modify(id, name, phoneNumber) {
@@ -161,7 +163,7 @@ class Main extends React.Component {
           )}
 
         <AddContactModal
-          id={selectedContact.id}
+          id={selectedContact.id.toString()}
           oldName={selectedContact.name}
           oldPhone={selectedContact.phoneNumber}
           isOpen={isAddContactModalOpen}

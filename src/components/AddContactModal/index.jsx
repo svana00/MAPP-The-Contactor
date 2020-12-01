@@ -102,7 +102,6 @@ AddContactModal.propTypes = {
   takePhoto: PropTypes.func.isRequired,
   selectFromCameraRoll: PropTypes.func.isRequired,
   onModify: PropTypes.func.isRequired,
-  modify: PropTypes.bool.isRequired,
   isBeingModified: PropTypes.bool.isRequired,
 };
 

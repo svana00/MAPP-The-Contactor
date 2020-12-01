@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   icon: {
-    fontSize: 45,
+    fontSize: 40,
     marginTop: 10,
     marginBottom: 10,
   },
