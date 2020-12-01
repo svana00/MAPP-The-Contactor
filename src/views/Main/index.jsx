@@ -96,14 +96,6 @@ class Main extends React.Component {
     return (
       <View style={{ flex: 1, backgroundColor: '#e5e5e5' }}>
         <MainToolbar />
-        <SafeAreaView style={{ backgroundColor: '#e5e5e5' }} />
-        <View style={styles.search}>
-          <TextInput
-            placeholder="Search"
-            placeholderTextColor="#000000"
-            style={styles.search}
-          />
-        </View>
         {isLoading ? <LoadingScreen /> : null}
         <ContactList
           contacts={contacts}

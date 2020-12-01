@@ -12,22 +12,19 @@ class ContactList extends React.Component {
     super(props);
     this.state = {
       query: '',
-      fullData: props.contacts,
+      modifiedData: props.contacts,
     };
   }
 
   handleSearch(text) {
     const {
-      fullData,
-    } = this.state;
-    const {
-      updateData,
+      contacts,
     } = this.props;
     const formattedQuery = text.toLowerCase();
-    const filteredData = filter(fullData, (contact) => this.contains(
+    const filteredData = filter(contacts, (contact) => this.contains(
       contact.name.toLowerCase(), formattedQuery,
     ));
-    updateData(filteredData);
+    this.updateModifiedData(filteredData);
     this.setQuery(text);
   }
 
@@ -35,8 +32,9 @@ class ContactList extends React.Component {
     this.setState({ query: queryText });
   }
 
-  updateFullData(filteredData) {
-    this.setState({ fullData: filteredData });
+  updateModifiedData(filteredData) {
+    console.log(filteredData);
+    this.setState({ modifiedData: filteredData });
   }
 
   contains(name, query) {
@@ -80,15 +78,15 @@ class ContactList extends React.Component {
 
   render() {
     const {
-      contacts,
-    } = this.props;
+      modifiedData,
+    } = this.state;
     return (
       <View style={styles.listContainer}>
         <Text style={styles.text}>Favorite Contacts</Text>
         <FlatList
           ListHeaderComponent={this.renderHeader()}
           numColumns={1}
-          data={contacts}
+          data={modifiedData}
           renderItem={({
             item: {
               id, name, phoneNumber, thumbnailPhoto,
