@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  View, Text, Image, TouchableOpacity
+  View, Text, Image, TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import MainToolbar from '../../components/MainToolbar';
 import { AntDesign } from '@expo/vector-icons';
+import MainToolbar from '../../components/MainToolbar';
 import styles from './styles';
 
 class DetailedView extends React.Component {
