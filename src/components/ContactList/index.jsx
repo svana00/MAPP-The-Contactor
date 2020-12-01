@@ -95,7 +95,7 @@ class ContactList extends React.Component {
           )}
           renderItem={({
             item: {
-              id, name, phoneNumber, thumbnailPhoto,
+              id, name, phoneNumber, image,
             },
           }) => (
             <View>
@@ -103,7 +103,7 @@ class ContactList extends React.Component {
                 id={id}
                 name={name}
                 phoneNumber={phoneNumber}
-                thumbnailPhoto={thumbnailPhoto}
+                thumbnailPhoto={image}
               />
             </View>
           )}

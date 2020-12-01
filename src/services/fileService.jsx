@@ -21,13 +21,9 @@ export const loadContact = async (fileName) => await onException(() => FileSyste
 
 export const addContact = async (contact, id) => {
   const fileName = contact.name.trim() + "-" + id + ".json";
-  console.log(fileName);
   fileUri = `${contactDirectory}/${fileName}`;
-  console.log(fileUri);
   contents = JSON.stringify(contact);
-  console.log("IM HERE")
   await FileSystem.writeAsStringAsync(fileUri, contents)
-  console.log("I SHOULD BW HWERE")
 }
 
 export const remove = async (name, id) => {
@@ -46,7 +42,6 @@ export const getAllContacts = async () => {
   await setupDirectory();
 
   const result = await onException(() => FileSystem.readDirectoryAsync(contactDirectory));
-  console.log("HE", result)
   return Promise.all(result.map(async (fileName) => ({
     contact: JSON.parse(await loadContact(fileName)),
   })));
