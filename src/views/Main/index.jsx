@@ -95,7 +95,10 @@ class Main extends React.Component {
     console.log('Hearthstone', contacts);
     return (
       <View style={{ flex: 1, backgroundColor: '#e5e5e5' }}>
-        <MainToolbar />
+        <MainToolbar
+          onAdd={() => this.setState({ isAddContactModalOpen: true })}
+          title="Contacts"
+        />
         {isLoading ? <LoadingScreen /> : null}
         <ContactList
           contacts={contacts}

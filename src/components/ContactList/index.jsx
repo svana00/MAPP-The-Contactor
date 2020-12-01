@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, FlatList, Text, ActivityIndicator, TextInput
+  View, FlatList, Text, TextInput,
 } from 'react-native';
 import filter from 'lodash.filter';
 import styles from './styles';
@@ -82,7 +82,6 @@ class ContactList extends React.Component {
     } = this.state;
     return (
       <View style={styles.listContainer}>
-        <Text style={styles.text}>Favorite Contacts</Text>
         <FlatList
           ListHeaderComponent={this.renderHeader()}
           numColumns={1}

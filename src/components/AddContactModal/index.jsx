@@ -39,6 +39,7 @@ class AddContactModal extends React.Component {
       <Modal
         isOpen={isOpen}
         closeModal={closeModal}
+        style={{ margin: 0 }}
       >
         <View style={styles.modalStyle}>
           <Text style={styles.modalTitleText}>
@@ -52,7 +53,7 @@ class AddContactModal extends React.Component {
             style={styles.textInput}
           />
           <TextInput
-            keyboardType={'phone-pad'}
+            keyboardType="phone-pad"
             onChangeText={(text) => this.setState({ phoneNumber: text })}
             value={phoneNumber}
             placeholder={isBeingModified ? oldPhone : 'Enter description (optional)'}
