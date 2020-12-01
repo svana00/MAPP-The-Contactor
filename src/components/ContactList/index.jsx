@@ -13,7 +13,7 @@ class ContactList extends React.Component {
     super(props);
     this.state = {
       query: '',
-      modifiedData: props.contacts,
+      modifiedData: this.props.contacts,
     };
   }
 
@@ -50,7 +50,6 @@ class ContactList extends React.Component {
     const {
       query,
     } = this.state;
-
     return (
       <View
         style={{
@@ -77,6 +76,9 @@ class ContactList extends React.Component {
     const {
       modifiedData,
     } = this.state;
+    console.log('hi');
+    console.log(modifiedData);
+    console.log('bye');
     return (
       <View style={styles.listContainer}>
         <FlatList

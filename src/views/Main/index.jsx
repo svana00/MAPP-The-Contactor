@@ -80,7 +80,7 @@ class Main extends React.Component {
   async addContact(name, phoneNumber) {
     const { contacts, nextId, thumbnailPhoto } = this.state;
     const contact = {
-      id: nextId.toString(), name, phoneNumber.toString(), image: thumbnailPhoto,
+      id: nextId.toString(), name, phoneNumber: phoneNumber.toString(), image: thumbnailPhoto,
     };
     await addContact(contact, nextId);
     this.setState({ nextId: nextId + 1, contacts: [...contacts, contact] });
@@ -88,12 +88,12 @@ class Main extends React.Component {
 
   async modify(id, name, phoneNumber) {
     let newName = name;
-    const newPhone = phoneNumber;
+    let newPhone = phoneNumber;
     let newImage = this.state.thumbnailPhoto;
     const old = contacts.filter((contact) => contact.id == id);
     const rest = contacts.filter((contact) => contact.id != id);
     if (newName == '') { newName = old.name; }
-    if (newPhone == '') { newPhoneNumber = old.phoneNumber; }
+    if (newPhone == '') { newPhone = old.phoneNumber; }
     if (newImage == '') { newImage = old.image; }
     const modified = {
       id, name: newName, phoneNumber: newPhone, image: newImage,
