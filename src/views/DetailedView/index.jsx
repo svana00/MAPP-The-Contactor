@@ -1,16 +1,18 @@
 import React from 'react';
-import {
-  View, Text, Image, TouchableOpacity, Linking,
-} from 'react-native';
+import {  View, Text, Image, TouchableOpacity, Linking,} from 'react-native';
 import PropTypes from 'prop-types';
 import MainToolbar from '../../components/MainToolbar';
 import styles from './styles';
 import LoadingScreen from '../../components/LoadingScreen';
-import {
-  getAllContacts, addContact, remove, cleanDirectory,
-} from '../../services/fileService';
+import {getAllContacts, addContact, remove, cleanDirectory,} from '../../services/fileService';
+import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
+import AddContactModal from '../../components/AddContactModal';
+import { withNavigation } from 'react-navigation';
+import {HeaderBackButton} from 'react-navigation-stack'
+
 
 class DetailedView extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -19,11 +21,9 @@ class DetailedView extends React.Component {
       phoneNumber: '',
       thumbnailPhoto: '',
       newThumbnail: '',
-      newName: '',
-      newPhone: '',
       isEditModalOpen: false,
       isLoading: true,
-      modify: false,
+      isBeingModified: false,
     };
   }
 
@@ -42,24 +42,36 @@ class DetailedView extends React.Component {
     });
   }
 
-  async modify(id, name, phoneNumber) {
-    const { thumbnailPhoto } = this.state;
-    let newName = name;
-    let newPhone = phoneNumber;
-    let newImage = thumbnailPhoto;
-    const old = contacts.filter((contact) => contact.id === id);
-    const rest = contacts.filter((contact) => contact.id !== id);
-    if (newName === '') { newName = old.name; }
-    if (newPhone === '') { newPhone = old.phoneNumber; }
-    if (newImage === '') { newImage = old.image; }
-    const modified = {
-      id, name: newName, phoneNumber: newPhone, image: newImage,
-    };
-    await this.setState({ contacts: [...rest, modified] });
-    await addContact(modified, id);
-    await remove(old.name, id);
+  async takePhoto() {
+    const photo = await takePhoto();
+    if (photo.length > 0) { this.setState({ newThumbnail: photo }); }
   }
 
+  async selectFromCameraRoll() {
+    const photo = await selectFromCameraRoll();
+    if (photo.length > 0) { this.setState({ newThumbnail: photo }); }
+  }
+
+  async modify(id, nName, nPhoneNumber) {
+    const { newThumbnail, name, phoneNumber,thumbnailPhoto } = this.state;
+    let newName = nName;
+    let newPhone = nPhoneNumber;
+    let newImage = newThumbnail;
+    if (newName === '') { newName = name; }
+    if (newPhone === '') { newPhone = phoneNumber; }
+    if (newImage === '') { newImage = thumbnailPhoto; }
+    var newFile = `${newName.trim()}-${id.trim()}.json`;
+    const modified = {
+      id, name: newName, phoneNumber: newPhone, image: newImage, fileName:newFile
+    };
+    var oldFileName = `${name.trim()}-${id.trim()}.json`;
+    await remove(oldFileName);
+    await this.setState({ name: newName, phoneNumber: newPhone, thumbnailPhoto: newImage, isBeingModified: false, isEditModalOpen: false });
+    await addContact(modified);
+  }
+  async setupModify(){
+    this.setState({isEditModalOpen: true, isBeingModified: true})
+  }
   render() {
     const {
       id,
@@ -67,11 +79,13 @@ class DetailedView extends React.Component {
       phoneNumber,
       thumbnailPhoto,
       isEditModalOpen,
-      isLoading
+      isLoading,
+      isBeingModified
     } = this.state;
+    console.log("EDIT", id, name, phoneNumber,thumbnailPhoto)
     return (
       <View style={{ flex: 1, backgroundColor: '#e5e5e5' }}>
-        <MainToolbar title={name} onModify={() => { console.log('hi'); }} />
+        <MainToolbar title={name} onModify={() => this.setupModify()} />
         {isLoading
           ? <LoadingScreen />
           : (
@@ -88,6 +102,19 @@ class DetailedView extends React.Component {
             </View>
             </>
           )}
+
+          <AddContactModal
+            id={id}
+            oldName={name}
+            oldPhone={phoneNumber}
+            isOpen={isEditModalOpen}
+            closeModal={() => this.setState({ isEditModalOpen: false })}
+            takePhoto={() => this.takePhoto()}
+            selectFromCameraRoll={() => this.selectFromCameraRoll()}
+            onSubmit={(name, phoneNumber) => this.addContact(name, phoneNumber)}
+            isBeingModified={isBeingModified}
+            onModify={(id, name, phoneNumber) => this.modify(id, name, phoneNumber)}
+          />
 
       </View>
     );

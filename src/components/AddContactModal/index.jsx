@@ -19,9 +19,9 @@ class AddContactModal extends React.Component {
   handlePress() {
     const { name, phoneNumber } = this.state;
     const {
-      id, onModify, modify, onSubmit,
+      id, onModify, isBeingModified, onSubmit,
     } = this.props;
-    if (modify) {
+    if (isBeingModified) {
       onModify(id, name, phoneNumber);
     } else {
       onSubmit(name, phoneNumber);
@@ -93,7 +93,7 @@ class AddContactModal extends React.Component {
 }
 
 AddContactModal.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   oldName: PropTypes.string.isRequired,
   oldPhone: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
