@@ -16,7 +16,7 @@ class DetailedView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 0,
+      id: '',
       name: '',
       phoneNumber: '',
       thumbnailPhoto: '',
