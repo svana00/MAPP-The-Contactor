@@ -39,13 +39,11 @@ export default StyleSheet.create({
   import: {
     color: 'green',
     fontSize: 20,
-    padding: 20,
     backgroundColor: 'white',
   },
   cancel: {
     color: LIGHT_BLUE,
     fontSize: 20,
-    padding: 20,
     backgroundColor: 'white',
   },
 });
