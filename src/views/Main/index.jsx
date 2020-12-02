@@ -10,7 +10,7 @@ import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
 import {
   getAllContacts, addContact, remove, cleanDirectory,
 } from '../../services/fileService';
-import { importContactsFromPhone } from '../../services/geContactsFileService';
+import { importContactsFromPhone } from '../../services/getContactsFileService';
 
 class Main extends React.Component {
   constructor(props) {
@@ -50,6 +50,10 @@ class Main extends React.Component {
 
   async TestContacts() {
     const data = await importContactsFromPhone();
+    // for (var i in data){
+    //   console.log(data[i].name)
+    //   console.log("working?", data[i].PhoneNumbers[0].number)
+    // }
     this.setState({ isConfirmationModalOpen: false })
   }
 
