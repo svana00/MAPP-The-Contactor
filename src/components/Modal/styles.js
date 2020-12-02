@@ -14,7 +14,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     flexGrow: 0.3,
     borderRadius: 10,
-    width: winWidth - 100,
+    width: winWidth - 50,
     backgroundColor: 'white',
     padding: 40,
     height: 150,
