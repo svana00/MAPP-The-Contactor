@@ -9,8 +9,8 @@ export default StyleSheet.create({
     borderWidth: 3,
   },
   icon: {
-    fontSize: 30,
-    marginTop: 21,
+    fontSize: 25,
+    marginTop: 25,
     marginBottom: 10,
     color: 'red',
   },
@@ -26,7 +26,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    width: 130,
+    width: 170,
     padding: 10,
     marginTop: 15,
     marginLeft: 5,

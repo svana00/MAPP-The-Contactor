@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Alert } from 'react-native';
-import * as Contacts from 'expo-contacts';
 import PropTypes from 'prop-types';
 import AddContactModal from '../../components/AddContactModal';
 import ContactList from '../../components/ContactList';
