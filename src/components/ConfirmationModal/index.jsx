@@ -16,16 +16,9 @@ const ConfirmationModal = ({
     closeModal={closeModal}
   >
     <AntDesign name="download" size={70} color="black" />
-    <Text style={styles.modalTitleText}>
-      Import Contacts?
-    </Text>
+
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <View style={styles.buttonItem}>
-          <TouchableHighlight onPress={() => { closeModal(); }}>
-            <Text style={styles.cancel}>Cancel</Text>
-          </TouchableHighlight>
-        </View>
 
         <View style={styles.buttonItem}>
           <TouchableHighlight onPress={() => { onConfirm(); }}>

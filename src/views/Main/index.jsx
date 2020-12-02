@@ -5,6 +5,7 @@ import AddContactModal from '../../components/AddContactModal';
 import ContactList from '../../components/ContactList';
 import LoadingScreen from '../../components/LoadingScreen';
 import MainToolbar from '../../components/MainToolbar';
+import ConfirmationModal from '../../components/ConfirmationModal';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
 import {
   getAllContacts, addContact, remove, cleanDirectory,
@@ -16,11 +17,12 @@ class Main extends React.Component {
     super(props);
     this.state = {
       contacts: [],
-      thumbnailPhoto: '',
+      thumbnailPhoto: 'http://www.clker.com/cliparts/d/L/P/X/z/i/no-image-icon-md.png',
       isAddContactModalOpen: false,
       isLoading: true,
       selectedContact: { id: 0, name: '', phoneNumber: '' },
       isBeingModified: false,
+      isConfirmationModalOpen: false,
     };
   }
 
@@ -45,13 +47,47 @@ class Main extends React.Component {
     this.setState({ contacts: filteredData });
   }
 
+
   async TestContacts() {
     const data = await importContactsFromPhone();
-    // for (var i in data){
-    //   console.log(data[i].name)
-    //   console.log("working?", data[i].PhoneNumbers[0].number)
-    // }
-    this.setState({ isConfirmationModalOpen: false })
+    for (var i in data){
+      var name = data[i].name
+      if (data[i].phoneNumbers == undefined) {
+        continue
+      } else {
+        var number = data[i].phoneNumbers[0].number
+      }
+      if (data[i].image !== undefined){
+        console.log("HÉRNAR PABBI", data[i].image)
+        await this.setState({thumbnailPhoto: data[i].image.uri})
+      }
+      await this.addFromPhone(name, number)
+    }
+    this.setState({ isConfirmationModalOpen: false, isLoading: false })
+  }
+
+  async addFromPhone(name, number){
+    this.setState({ isLoading: true });
+    let { contacts } = this.state;
+    const { thumbnailPhoto } = this.state
+    const id = `${name.trim()}${number.trim()}`;
+    const alreadyThere = contacts.filter(contact => contact.id == id);
+    if (alreadyThere.length === 0) {
+      const contact = {
+        id,
+        name,
+        phoneNumber: number.toString(),
+        image: thumbnailPhoto,
+        fileName: `${name.trim()}-${id.trim()}.json`,
+      };
+      contacts = [...contacts, contact];
+      const sortedContacts = await contacts.sort((a, b) => a.name.localeCompare(b.name));
+      await addContact(contact);
+      this.setState({
+        contacts: sortedContacts,
+        isAddContactModalOpen: false,
+        thumbnailPhoto: 'http://www.clker.com/cliparts/d/L/P/X/z/i/no-image-icon-md.png',
+      });}
   }
 
   async fetchContacts() {
@@ -63,23 +99,19 @@ class Main extends React.Component {
     const contacts = await unsortedContacts.sort((a, b) => a.name.localeCompare(b.name));
     this.setState({ isLoading: false, contacts });
   }
-
-
   async takePhoto() {
     const photo = await takePhoto();
     if (photo.length > 0) { this.setState({ thumbnailPhoto: photo }); }
   }
-
   async selectFromCameraRoll() {
     const photo = await selectFromCameraRoll();
     if (photo.length > 0) { this.setState({ thumbnailPhoto: photo }); }
   }
-
   async addContact(name, phoneNumber) {
     this.setState({ isLoading: true });
     let { contacts } = this.state;
     const { thumbnailPhoto } = this.state;
-    if (name.length === 0 || phoneNumber.length === 0 || thumbnailPhoto === '') {
+    if (name.length === 0 || phoneNumber.length === 0 ) {
       setTimeout(() => {
         Alert.alert(
           'Blank Fields',
@@ -110,7 +142,7 @@ class Main extends React.Component {
         this.setState({
           contacts: sortedContacts,
           isAddContactModalOpen: false,
-          thumbnailPhoto: '',
+          thumbnailPhoto: 'http://www.clker.com/cliparts/d/L/P/X/z/i/no-image-icon-md.png',
         });
         setTimeout(() => {
           Alert.alert(
@@ -140,11 +172,10 @@ class Main extends React.Component {
             { cancelable: false },
           );
         }, 500);
-        this.setState({isLoading: false, isAddContactModalOpen: false})
+        this.setState({ isLoading: false, isAddContactModalOpen: false })
       }
     }
   }
-
   async deleteContact(fileName) {
     const { contacts } = this.state;
     this.setState({ isLoading: true });
@@ -154,7 +185,6 @@ class Main extends React.Component {
       contacts: contacts.filter((contact) => contact.fileName !== fileName),
     });
   }
-
   // async modify(id, name, phoneNumber) {
   //   const { thumbnailPhoto, contacts } = this.state;
   //   let newName = name;
@@ -172,7 +202,6 @@ class Main extends React.Component {
   //   await addContact(modified, id);
   //   await remove(old.name, id);
   // }
-
   render() {
     const {
       contacts,
@@ -180,11 +209,13 @@ class Main extends React.Component {
       isLoading,
       selectedContact,
       isBeingModified,
+      isConfirmationModalOpen,
     } = this.state;
     return (
       <View style={{ flex: 1, backgroundColor: '#e5e5e5' }}>
         <MainToolbar
           onAdd={() => this.setState({ isAddContactModalOpen: true })}
+          onImport={() => this.setState({ isConfirmationModalOpen: true })}
           title="Contacts"
         />
         {isLoading
@@ -198,7 +229,11 @@ class Main extends React.Component {
               />
             </>
           )}
-
+        <ConfirmationModal
+          isOpen={isConfirmationModalOpen}
+          onConfirm={() => this.TestContacts()}
+          closeModal={() => this.setState({ isConfirmationModalOpen: false })}
+        />
         <AddContactModal
           id={selectedContact.id.toString()}
           oldName={selectedContact.name}
@@ -215,12 +250,10 @@ class Main extends React.Component {
     );
   }
 }
-
 Main.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     addListener: PropTypes.func.isRequired,
   }).isRequired,
 };
-
 export default Main;

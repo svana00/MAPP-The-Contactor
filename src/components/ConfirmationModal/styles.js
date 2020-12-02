@@ -26,14 +26,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
-  buttonItem: {
-    padding: 5,
-  },
+
   buttonContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
     flexDirection: 'row',
     paddingBottom: 5,
   },
