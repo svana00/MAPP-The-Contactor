@@ -88,7 +88,7 @@ class Main extends React.Component {
       setTimeout(() => {
         Alert.alert(
           'Blank Fields',
-          'Please do not leave any fields blank',
+          'Please do not leave any fields blank.',
           [
             {
               text: 'OK',
