@@ -45,6 +45,11 @@ class Main extends React.Component {
     this.setState({ contacts: filteredData });
   }
 
+  async TestContacts() {
+    const data = await importContactsFromPhone();
+    this.setState({ isConfirmationModalOpen: false })
+  }
+
   async fetchContacts() {
     const gotten = await getAllContacts();
     const unsortedContacts = [];
