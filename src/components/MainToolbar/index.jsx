@@ -8,11 +8,14 @@ const MainToolbar = ({
   onAdd, onModify, onImport, title,
 }) => (
   <View styleName="horizontal" style={styles.toolbar}>
-    <View style={styles.toolbarAction}>
-      <TouchableHighlight onPress={onImport} style={{ padding: 10 }}>
-        <AntDesign name="download" size={25} color="white" />
-      </TouchableHighlight>
-    </View>
+    {onAdd ? (
+      <View style={styles.toolbarAction}>
+        <TouchableHighlight onPress={onImport} style={{ padding: 10 }}>
+          <AntDesign name="download" size={25} color="white" />
+        </TouchableHighlight>
+      </View>
+    )
+      : null}
     <View style={styles.toolbarAction}>
       <Text style={styles.toolbarActionText}>{title}</Text>
     </View>
