@@ -47,31 +47,30 @@ class Main extends React.Component {
     this.setState({ contacts: filteredData });
   }
 
-
   async TestContacts() {
     const data = await importContactsFromPhone();
-    for (var i in data){
-      var name = data[i].name
+    for (const i in data) {
+      const { name } = data[i];
       if (data[i].phoneNumbers == undefined) {
-        continue
+        continue;
       } else {
-        var number = data[i].phoneNumbers[0].number
+        var { number } = data[i].phoneNumbers[0];
       }
-      if (data[i].image !== undefined){
-        console.log("HÉRNAR PABBI", data[i].image)
-        await this.setState({thumbnailPhoto: data[i].image.uri})
+      if (data[i].image !== undefined) {
+        console.log('HÉRNAR PABBI', data[i].image);
+        await this.setState({ thumbnailPhoto: data[i].image.uri });
       }
-      await this.addFromPhone(name, number)
+      await this.addFromPhone(name, number);
     }
-    this.setState({ isConfirmationModalOpen: false, isLoading: false })
+    this.setState({ isConfirmationModalOpen: false, isLoading: false });
   }
 
-  async addFromPhone(name, number){
+  async addFromPhone(name, number) {
     this.setState({ isLoading: true });
     let { contacts } = this.state;
-    const { thumbnailPhoto } = this.state
+    const { thumbnailPhoto } = this.state;
     const id = `${name.trim()}${number.trim()}`;
-    const alreadyThere = contacts.filter(contact => contact.id == id);
+    const alreadyThere = contacts.filter((contact) => contact.id == id);
     if (alreadyThere.length === 0) {
       const contact = {
         id,
@@ -87,7 +86,8 @@ class Main extends React.Component {
         contacts: sortedContacts,
         isAddContactModalOpen: false,
         thumbnailPhoto: 'http://www.clker.com/cliparts/d/L/P/X/z/i/no-image-icon-md.png',
-      });}
+      });
+    }
   }
 
   async fetchContacts() {
@@ -99,19 +99,22 @@ class Main extends React.Component {
     const contacts = await unsortedContacts.sort((a, b) => a.name.localeCompare(b.name));
     this.setState({ isLoading: false, contacts });
   }
+
   async takePhoto() {
     const photo = await takePhoto();
     if (photo.length > 0) { this.setState({ thumbnailPhoto: photo }); }
   }
+
   async selectFromCameraRoll() {
     const photo = await selectFromCameraRoll();
     if (photo.length > 0) { this.setState({ thumbnailPhoto: photo }); }
   }
+
   async addContact(name, phoneNumber) {
     this.setState({ isLoading: true });
     let { contacts } = this.state;
     const { thumbnailPhoto } = this.state;
-    if (name.length === 0 || phoneNumber.length === 0 ) {
+    if (name.length === 0 || phoneNumber.length === 0) {
       setTimeout(() => {
         Alert.alert(
           'Blank Fields',
@@ -127,7 +130,7 @@ class Main extends React.Component {
       }, 500);
     } else {
       const id = `${name.trim()}${phoneNumber.trim()}`;
-      const alreadyThere = contacts.filter(contact => contact.id == id);
+      const alreadyThere = contacts.filter((contact) => contact.id == id);
       if (alreadyThere.length === 0) {
         const contact = {
           id,
@@ -172,10 +175,11 @@ class Main extends React.Component {
             { cancelable: false },
           );
         }, 500);
-        this.setState({ isLoading: false, isAddContactModalOpen: false })
+        this.setState({ isLoading: false, isAddContactModalOpen: false });
       }
     }
   }
+
   async deleteContact(fileName) {
     const { contacts } = this.state;
     this.setState({ isLoading: true });
@@ -185,6 +189,7 @@ class Main extends React.Component {
       contacts: contacts.filter((contact) => contact.fileName !== fileName),
     });
   }
+
   // async modify(id, name, phoneNumber) {
   //   const { thumbnailPhoto, contacts } = this.state;
   //   let newName = name;

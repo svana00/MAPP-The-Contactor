@@ -8,7 +8,7 @@ import { withNavigation } from 'react-navigation';
 import styles from './styles';
 
 const ContactListItem = ({
-  id, name, thumbnailPhoto, phoneNumber, navigation: { navigate }, onDelete, fileName
+  id, name, thumbnailPhoto, phoneNumber, navigation: { navigate }, onDelete, fileName,
 }) => (
   <TouchableOpacity
     onPress={() => {

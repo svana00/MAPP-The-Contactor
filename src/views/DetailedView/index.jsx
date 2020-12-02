@@ -67,7 +67,7 @@ class DetailedView extends React.Component {
     if (newPhone === '') { newPhone = phoneNumber; }
     if (newImage === '') { newImage = thumbnailPhoto; }
 
-    var newId = `${newName.trim()}${newPhone.trim()}`
+    const newId = `${newName.trim()}${newPhone.trim()}`;
     const newFile = `${newName.trim()}-${newId.trim()}.json`;
     const modified = {
       id: newId, name: newName, phoneNumber: newPhone, image: newImage, fileName: newFile,
