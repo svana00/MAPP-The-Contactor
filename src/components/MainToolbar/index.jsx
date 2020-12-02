@@ -4,10 +4,14 @@ import { AntDesign } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-const MainToolbar = ({ onAdd, onModify, title }) => (
+const MainToolbar = ({
+  onAdd, onModify, onImport, title,
+}) => (
   <View styleName="horizontal" style={styles.toolbar}>
     <View style={styles.toolbarAction}>
-      <Text style={styles.clear}>i</Text>
+      <TouchableHighlight onPress={onImport} style={{ padding: 10 }}>
+        <AntDesign name="download" size={25} color="white" />
+      </TouchableHighlight>
     </View>
     <View style={styles.toolbarAction}>
       <Text style={styles.toolbarActionText}>{title}</Text>
@@ -19,9 +23,11 @@ const MainToolbar = ({ onAdd, onModify, title }) => (
     )
       : null}
     {onAdd ? (
-      <TouchableHighlight style={styles.toolbarAction} onPress={onAdd}>
-        <Text style={styles.toolbarAddText}>+</Text>
-      </TouchableHighlight>
+      <View style={styles.toolbarAction}>
+        <TouchableHighlight onPress={onAdd} style={{ padding: 10 }}>
+          <Text style={styles.toolbarAddText}>+</Text>
+        </TouchableHighlight>
+      </View>
     )
       : null}
   </View>
@@ -30,11 +36,13 @@ const MainToolbar = ({ onAdd, onModify, title }) => (
 MainToolbar.propTypes = {
   onAdd: PropTypes.func,
   onModify: PropTypes.func,
+  onImport: PropTypes.func,
   title: PropTypes.string.isRequired,
 };
 MainToolbar.defaultProps = {
   onAdd: null,
   onModify: null,
+  onImport: null,
 };
 
 export default MainToolbar;
