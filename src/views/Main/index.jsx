@@ -8,7 +8,7 @@ import LoadingScreen from '../../components/LoadingScreen';
 import MainToolbar from '../../components/MainToolbar';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
 import {
-  getAllContacts, addContact, remove, cleanDirectory,
+  getAllContacts, addContact, remove,
 } from '../../services/fileService';
 
 class Main extends React.Component {

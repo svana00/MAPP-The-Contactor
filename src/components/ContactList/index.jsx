@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, FlatList, Text, TextInput, Image, Button,
+  View, FlatList, Text, TextInput, Image,
 } from 'react-native';
 import filter from 'lodash.filter';
 import styles from './styles';
@@ -95,11 +95,6 @@ class ContactList extends React.Component {
                 fileName={fileName}
                 onDelete={onDelete}
               />
-              <View style={styles.buttonContainer}>
-                <View style={styles.buttonItem}>
-                  <Button color="red" title="Delete Contact" onPress={() => { onDelete(fileName); }} />
-                </View>
-              </View>
             </View>
           )}
           keyExtractor={(contact) => contact.id.toString()}

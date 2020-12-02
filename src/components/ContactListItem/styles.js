@@ -8,6 +8,12 @@ export default StyleSheet.create({
     overflow: 'hidden',
     borderWidth: 3,
   },
+  icon: {
+    fontSize: 30,
+    marginTop: 21,
+    marginBottom: 10,
+    color: 'red',
+  },
   listItem: {
     marginTop: 10,
     paddingVertical: 20,
@@ -20,8 +26,10 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    width: 200,
+    width: 130,
     padding: 10,
+    marginTop: 15,
+    marginLeft: 5,
   },
   subTitle: {
     fontSize: 15,
