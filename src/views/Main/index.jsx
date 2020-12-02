@@ -17,7 +17,7 @@ class Main extends React.Component {
     super(props);
     this.state = {
       contacts: [],
-      thumbnailPhoto: '',
+      thumbnailPhoto: 'http://www.clker.com/cliparts/d/L/P/X/z/i/no-image-icon-md.png',
       isAddContactModalOpen: false,
       isLoading: true,
       selectedContact: { id: 0, name: '', phoneNumber: '' },
@@ -76,7 +76,7 @@ class Main extends React.Component {
     this.setState({ isLoading: true });
     let { contacts } = this.state;
     const { thumbnailPhoto } = this.state;
-    if (name.length === 0 || phoneNumber.length === 0 || thumbnailPhoto === '') {
+    if (name.length === 0 || phoneNumber.length === 0 ) {
       setTimeout(() => {
         Alert.alert(
           'Blank Fields',
@@ -107,7 +107,7 @@ class Main extends React.Component {
         this.setState({
           contacts: sortedContacts,
           isAddContactModalOpen: false,
-          thumbnailPhoto: '',
+          thumbnailPhoto: 'http://www.clker.com/cliparts/d/L/P/X/z/i/no-image-icon-md.png',
         });
         setTimeout(() => {
           Alert.alert(
