@@ -8,6 +8,7 @@ export const importContactsFromPhone = async () => {
     const { data } = await Contacts.getContactsAsync({
       fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers, Contacts.Fields.Image],
     });
+    console.log("mamma", data)
     return data;
   }
 };

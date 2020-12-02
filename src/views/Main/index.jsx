@@ -49,7 +49,7 @@ class Main extends React.Component {
   }
 
   async TestContacts() {
-    const { contactsData } = await importContactsFromPhone();
+    const data = await importContactsFromPhone();
     this.setState({ isConfirmationModalOpen: false })
   }
 
