@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, TextInput, SafeAreaView } from 'react-native';
-import * as Contacts from 'expo-contacts';
 import data from '../../resources/data.json';
 import AddContactModal from '../../components/AddContactModal';
 import ContactList from '../../components/ContactList';
@@ -10,6 +9,7 @@ import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
 import {
   getAllContacts, addContact, remove, cleanDirectory,
 } from '../../services/fileService';
+import { getAllSystemContacts } from '../../services/geContactsFileService';
 
 class Main extends React.Component {
   constructor(props) {
@@ -26,8 +26,13 @@ class Main extends React.Component {
   }
 
   async componentDidMount() {
-    // await this.loadContacts();
+    await this.getSystemContacts();
     await this._fetchContacts();
+  }
+
+  async getSystemContacts() {
+    const { contactsData } = await getAllSystemContacts();
+    this.setState({contacts: contactsData});
   }
 
   async _fetchContacts() {
@@ -43,22 +48,6 @@ class Main extends React.Component {
   async setData(filteredData) {
     this.setState({ contacts: filteredData });
   }
-  /*
-  async loadContacts() {
-    const permission = await Contacts.requestPermissionsAsync();
-
-    if (permission !== 'granted') {
-      return;
-    }
-    const { contactData } = await Contacts.getContactsAsync({
-      fields: [Contacts.Fields.Name,
-        Contacts.Fields.PhoneNumbers,
-        Contacts.Fields.Image,
-      ],
-    });
-    this.setState({ contacts: contactData, isLoading: false });
-  }
-  */
 
   async takePhoto() {
     const { thumbnailPhoto } = this.state;
