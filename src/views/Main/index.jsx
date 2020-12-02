@@ -100,35 +100,53 @@ class Main extends React.Component {
       }, 500);
     } else {
       const id = `${name.trim()}${phoneNumber.trim()}`;
-      const contact = {
-        id,
-        name,
-        phoneNumber: phoneNumber.toString(),
-        image: thumbnailPhoto,
-        fileName: `${name.trim()}-${id.trim()}.json`,
-      };
-      contacts = [...contacts, contact];
-      const sortedContacts = await contacts.sort((a, b) => a.name.localeCompare(b.name));
-      await addContact(contact);
-      this.setState({
-        contacts: sortedContacts,
-        isAddContactModalOpen: false,
-        thumbnailPhoto: '',
-      });
-      setTimeout(() => {
-        Alert.alert(
-          'Contact created',
-          'Your contact has been added to the system',
-          [
-            {
-              text: 'OK',
-              onPress: () => {},
-            },
-          ],
-          { cancelable: false },
-        );
-      }, 500);
-      this.setState({ isLoading: false });
+      const alreadyThere = contacts.filter(contact => contact.id == id);
+      if (alreadyThere.length === 0) {
+        const contact = {
+          id,
+          name,
+          phoneNumber: phoneNumber.toString(),
+          image: thumbnailPhoto,
+          fileName: `${name.trim()}-${id.trim()}.json`,
+        };
+        contacts = [...contacts, contact];
+        const sortedContacts = await contacts.sort((a, b) => a.name.localeCompare(b.name));
+        await addContact(contact);
+        this.setState({
+          contacts: sortedContacts,
+          isAddContactModalOpen: false,
+          thumbnailPhoto: '',
+        });
+        setTimeout(() => {
+          Alert.alert(
+            'Contact created',
+            'Your contact has been added to the system',
+            [
+              {
+                text: 'OK',
+                onPress: () => {},
+              },
+            ],
+            { cancelable: false },
+          );
+        }, 500);
+        this.setState({ isLoading: false });
+      } else {
+        setTimeout(() => {
+          Alert.alert(
+            'Contact already exists',
+            'This contact already exists so we did not create it',
+            [
+              {
+                text: 'OK',
+                onPress: () => {},
+              },
+            ],
+            { cancelable: false },
+          );
+        }, 500);
+        this.setState({isLoading: false, isAddContactModalOpen: false})
+      }
     }
   }
 

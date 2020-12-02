@@ -66,13 +66,16 @@ class DetailedView extends React.Component {
     if (newName === '') { newName = name; }
     if (newPhone === '') { newPhone = phoneNumber; }
     if (newImage === '') { newImage = thumbnailPhoto; }
-    const newFile = `${newName.trim()}-${id.trim()}.json`;
+
+    var newId = `${newName.trim()}${newPhone.trim()}`
+    const newFile = `${newName.trim()}-${newId.trim()}.json`;
     const modified = {
-      id, name: newName, phoneNumber: newPhone, image: newImage, fileName: newFile,
+      id: newId, name: newName, phoneNumber: newPhone, image: newImage, fileName: newFile,
     };
     const oldFileName = `${name.trim()}-${id.trim()}.json`;
     await remove(oldFileName);
     await this.setState({
+      id: newId,
       name: newName,
       phoneNumber: newPhone,
       thumbnailPhoto: newImage,
@@ -92,7 +95,6 @@ class DetailedView extends React.Component {
       isLoading,
       isBeingModified,
     } = this.state;
-    console.log('EDIT', id, name, phoneNumber, thumbnailPhoto);
     return (
       <View style={{ flex: 1, backgroundColor: '#e5e5e5' }}>
         <MainToolbar title={name} onModify={() => this.setupModify()} />
