@@ -5,7 +5,6 @@ import AddContactModal from '../../components/AddContactModal';
 import ContactList from '../../components/ContactList';
 import LoadingScreen from '../../components/LoadingScreen';
 import MainToolbar from '../../components/MainToolbar';
-import ConfirmationModal from '../../components/ConfirmationModal';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
 import {
   getAllContacts, addContact, remove, cleanDirectory,
@@ -17,19 +16,17 @@ class Main extends React.Component {
     super(props);
     this.state = {
       contacts: [],
-      thumbnailPhoto: 'http://www.clker.com/cliparts/d/L/P/X/z/i/no-image-icon-md.png',
+      thumbnailPhoto: '',
       isAddContactModalOpen: false,
       isLoading: true,
       selectedContact: { id: 0, name: '', phoneNumber: '' },
       isBeingModified: false,
-      isConfirmationModalOpen: false,
     };
   }
 
   async componentDidMount() {
     // await this.loadContacts();
     const { navigation } = this.props;
-    await this.TestContacts();
     await this.fetchContacts();
     this.willFocusSubscription = navigation.addListener(
       'willFocus',
@@ -67,6 +64,7 @@ class Main extends React.Component {
     this.setState({ isLoading: false, contacts });
   }
 
+
   async takePhoto() {
     const photo = await takePhoto();
     if (photo.length > 0) { this.setState({ thumbnailPhoto: photo }); }
@@ -81,7 +79,7 @@ class Main extends React.Component {
     this.setState({ isLoading: true });
     let { contacts } = this.state;
     const { thumbnailPhoto } = this.state;
-    if (name.length === 0 || phoneNumber.length === 0 ) {
+    if (name.length === 0 || phoneNumber.length === 0 || thumbnailPhoto === '') {
       setTimeout(() => {
         Alert.alert(
           'Blank Fields',
@@ -112,7 +110,7 @@ class Main extends React.Component {
         this.setState({
           contacts: sortedContacts,
           isAddContactModalOpen: false,
-          thumbnailPhoto: 'http://www.clker.com/cliparts/d/L/P/X/z/i/no-image-icon-md.png',
+          thumbnailPhoto: '',
         });
         setTimeout(() => {
           Alert.alert(
@@ -142,7 +140,7 @@ class Main extends React.Component {
             { cancelable: false },
           );
         }, 500);
-        this.setState({ isLoading: false, isAddContactModalOpen: false })
+        this.setState({isLoading: false, isAddContactModalOpen: false})
       }
     }
   }
@@ -182,13 +180,11 @@ class Main extends React.Component {
       isLoading,
       selectedContact,
       isBeingModified,
-      isConfirmationModalOpen,
     } = this.state;
     return (
       <View style={{ flex: 1, backgroundColor: '#e5e5e5' }}>
         <MainToolbar
           onAdd={() => this.setState({ isAddContactModalOpen: true })}
-          onImport={() => this.setState({ isConfirmationModalOpen: true })}
           title="Contacts"
         />
         {isLoading
@@ -202,11 +198,7 @@ class Main extends React.Component {
               />
             </>
           )}
-        <ConfirmationModal
-          isOpen={isConfirmationModalOpen}
-          onConfirm={() => this.TestContacts()}
-          closeModal={() => this.setState({ isConfirmationModalOpen: false })}
-        />
+
         <AddContactModal
           id={selectedContact.id.toString()}
           oldName={selectedContact.name}
