@@ -6,7 +6,9 @@ import ContactList from '../../components/ContactList';
 import LoadingScreen from '../../components/LoadingScreen';
 import MainToolbar from '../../components/MainToolbar';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
-import {getAllContacts, addContact, remove, cleanDirectory} from '../../services/fileService';
+import {
+  getAllContacts, addContact, remove, cleanDirectory,
+} from '../../services/fileService';
 
 class Main extends React.Component {
   constructor(props) {
@@ -26,18 +28,19 @@ class Main extends React.Component {
     await this.fetchContacts();
     this.willFocusSubscription = this.props.navigation.addListener(
       'willFocus',
-        async () => {
-          this.setState({isLoading: true})
-          await this.fetchContacts();
-        });
+      async () => {
+        this.setState({ isLoading: true });
+        await this.fetchContacts();
+      },
+    );
   }
 
   componentWillUnmount() {
-    this.willFocusSubscription.remove()
+    this.willFocusSubscription.remove();
   }
 
   async setData(filteredData) {
-    this.setState({ contacts: filteredData});
+    this.setState({ contacts: filteredData });
   }
 
   async fetchContacts() {
@@ -47,7 +50,7 @@ class Main extends React.Component {
       unsortedContacts.push(gotten[i].contact);
     }
     const contacts = await unsortedContacts.sort((a, b) => a.name.localeCompare(b.name));
-    this.setState({ isLoading: false, contacts});
+    this.setState({ isLoading: false, contacts });
   }
   /*
   async loadContacts() {
@@ -77,7 +80,7 @@ class Main extends React.Component {
   }
 
   async addContact(name, phoneNumber) {
-    this.setState({isLoading: true})
+    this.setState({ isLoading: true });
     let { contacts } = this.state;
     const { thumbnailPhoto } = this.state;
     if (name.length === 0 || phoneNumber.length === 0 || thumbnailPhoto === '') {
@@ -95,44 +98,44 @@ class Main extends React.Component {
         );
       }, 500);
     } else {
-    var id = `${name.trim()}${phoneNumber.trim()}`;
-    const contact = {
-      id: id,
-      name,
-      phoneNumber: phoneNumber.toString(),
-      image: thumbnailPhoto,
-      fileName: `${name.trim()}-${id.trim()}.json`
-    };
-    contacts = [...contacts, contact];
-    const sortedContacts = await contacts.sort((a, b) => a.name.localeCompare(b.name));
-    await addContact(contact);
-    this.setState({
-      contacts: sortedContacts,
-      isAddContactModalOpen: false,
-      thumbnailPhoto: '',
-    });
-    setTimeout(() => {
-      Alert.alert(
-        'Contact created',
-        'Your contact has been added to the system',
-        [
-          {
-            text: 'OK',
-            onPress: () => {},
-          },
-        ],
-        { cancelable: false },
-      );
-    }, 500);
-    this.setState({isLoading: false});
-  }
+      const id = `${name.trim()}${phoneNumber.trim()}`;
+      const contact = {
+        id,
+        name,
+        phoneNumber: phoneNumber.toString(),
+        image: thumbnailPhoto,
+        fileName: `${name.trim()}-${id.trim()}.json`,
+      };
+      contacts = [...contacts, contact];
+      const sortedContacts = await contacts.sort((a, b) => a.name.localeCompare(b.name));
+      await addContact(contact);
+      this.setState({
+        contacts: sortedContacts,
+        isAddContactModalOpen: false,
+        thumbnailPhoto: '',
+      });
+      setTimeout(() => {
+        Alert.alert(
+          'Contact created',
+          'Your contact has been added to the system',
+          [
+            {
+              text: 'OK',
+              onPress: () => {},
+            },
+          ],
+          { cancelable: false },
+        );
+      }, 500);
+      this.setState({ isLoading: false });
+    }
   }
 
   async deleteContact(fileName) {
-    const {contacts} = this.state;
-    this.setState({isLoading: true})
+    const { contacts } = this.state;
+    this.setState({ isLoading: true });
     await remove(fileName);
-    await this.setState({isLoading: false, contacts: contacts.filter((contact) => contact.fileName !== fileName)});
+    await this.setState({ isLoading: false, contacts: contacts.filter((contact) => contact.fileName !== fileName) });
   }
 
   // async modify(id, name, phoneNumber) {
@@ -175,7 +178,7 @@ class Main extends React.Component {
                 contacts={contacts}
                 updateData={(filteredData) => this.setData(filteredData)}
                 onDelete={(fileName) => this.deleteContact(fileName)}
-                onLongPress = {(id, name) => this.onContactLongPress(id, name)}
+                onLongPress={(id, name) => this.onContactLongPress(id, name)}
               />
             </>
           )}

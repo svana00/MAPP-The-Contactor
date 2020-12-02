@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, FlatList, Text, TextInput, Image,Button,
+  View, FlatList, Text, TextInput, Image, Button,
 } from 'react-native';
 import filter from 'lodash.filter';
 import styles from './styles';
@@ -68,7 +68,7 @@ class ContactList extends React.Component {
     const {
       modifiedData,
     } = this.state;
-    const {onDelete, onPress} = this.props
+    const { onDelete, onPress } = this.props;
     return (
       <View style={styles.listContainer}>
         <FlatList
@@ -83,7 +83,7 @@ class ContactList extends React.Component {
           )}
           renderItem={({
             item: {
-              id, name, phoneNumber, image, fileName
+              id, name, phoneNumber, image, fileName,
             },
           }) => (
             <View>

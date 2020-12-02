@@ -4,29 +4,29 @@ import {
   View, Text, Image, TouchableOpacity,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import styles from './styles';
 import { AntDesign } from '@expo/vector-icons';
+import styles from './styles';
 
 const ContactListItem = ({
   id, name, thumbnailPhoto, phoneNumber, isSelected, onLongPress, update, navigation: { navigate },
 }) => (
   <TouchableOpacity
     onLongPress={() => onLongPress(id, name)}
-    onPress={() => {navigate('DetailedView', {
-      contactId: id,
-      contactName: name,
-      contactPhoneNumber: phoneNumber,
-      contactThumbnailPhoto: thumbnailPhoto,
-    })}}
+    onPress={() => {
+      navigate('DetailedView', {
+        contactId: id,
+        contactName: name,
+        contactPhoneNumber: phoneNumber,
+        contactThumbnailPhoto: thumbnailPhoto,
+      });
+    }}
   >
-  {
+    {
     isSelected
-    ?
-    <AntDesign name="checkcircleo" style={ styles.checkmark } />
-    :
-    <></>
+      ? <AntDesign name="checkcircleo" style={styles.checkmark} />
+      : <></>
   }
-    <View style={[styles.listItem, {opacity: isSelected ? .5 : 1}]}>
+    <View style={[styles.listItem, { opacity: isSelected ? 0.5 : 1 }]}>
       <Image
         source={{ uri: thumbnailPhoto }}
         style={styles.thumbnailImage}
