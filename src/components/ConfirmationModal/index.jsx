@@ -17,7 +17,7 @@ const ConfirmationModal = ({
   >
     <AntDesign name="download" size={70} color="black" />
     <Text style={styles.modalTitleText}>
-      Import Phone Contacts?
+      Import Contacts?
     </Text>
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
