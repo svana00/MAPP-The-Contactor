@@ -19,9 +19,9 @@ class AddContactModal extends React.Component {
   handlePress() {
     const { name, phoneNumber } = this.state;
     const {
-      id, onModify, modify, onSubmit,
+      id, onModify, isBeingModified, onSubmit,
     } = this.props;
-    if (modify) {
+    if (isBeingModified) {
       onModify(id, name, phoneNumber);
     } else {
       onSubmit(name, phoneNumber);
@@ -34,6 +34,12 @@ class AddContactModal extends React.Component {
       isOpen, closeModal, takePhoto, selectFromCameraRoll, oldName, oldPhone, isBeingModified,
     } = this.props;
     const { name, phoneNumber } = this.state;
+    let title;
+    if (isBeingModified) {
+      title = <Text style={styles.modalTitleText}>Edit Contact</Text>;
+    } else {
+      title = <Text style={styles.modalTitleText}>Add Contact</Text>;
+    }
 
     return (
       <Modal
@@ -43,7 +49,7 @@ class AddContactModal extends React.Component {
       >
         <View style={styles.modalStyle}>
           <Text style={styles.modalTitleText}>
-            Add Contact
+            {title}
           </Text>
           <View style={styles.buttonContainer}>
             <View>
@@ -93,7 +99,7 @@ class AddContactModal extends React.Component {
 }
 
 AddContactModal.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   oldName: PropTypes.string.isRequired,
   oldPhone: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
@@ -102,8 +108,9 @@ AddContactModal.propTypes = {
   takePhoto: PropTypes.func.isRequired,
   selectFromCameraRoll: PropTypes.func.isRequired,
   onModify: PropTypes.func.isRequired,
-  modify: PropTypes.bool.isRequired,
   isBeingModified: PropTypes.bool.isRequired,
 };
+
+AddContactModal.defaultProps = { oldPhone: '' };
 
 export default AddContactModal;

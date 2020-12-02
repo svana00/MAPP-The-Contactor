@@ -13,8 +13,8 @@ export default StyleSheet.create({
     fontWeight: '700',
   },
   image: {
-    width: 350,
-    height: 200,
+    width: 225,
+    height: 125,
     borderRadius: 20,
     margin: 10,
   },

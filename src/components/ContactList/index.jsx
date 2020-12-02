@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-
   View, FlatList, Text, TextInput, Image,
 } from 'react-native';
 import filter from 'lodash.filter';
 import styles from './styles';
 import ContactListItem from '../ContactListItem';
 import LoadingContactsImage from '../../resources/images/resourceNotFound.png';
+import contains from '../../helpers/containsSubstring';
 
 class ContactList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       query: '',
-      modifiedData: this.props.contacts,
+      modifiedData: props.contacts,
     };
   }
 
@@ -23,7 +23,7 @@ class ContactList extends React.Component {
       contacts,
     } = this.props;
     const formattedQuery = text.toLowerCase();
-    const filteredData = filter(contacts, (contact) => this.contains(
+    const filteredData = filter(contacts, (contact) => contains(
       contact.name.toLowerCase(), formattedQuery,
     ));
     this.updateModifiedData(filteredData);
@@ -36,14 +36,6 @@ class ContactList extends React.Component {
 
   updateModifiedData(filteredData) {
     this.setState({ modifiedData: filteredData });
-  }
-
-  contains(name, query) {
-    if (name.includes(query)) {
-      return true;
-    }
-
-    return false;
   }
 
   renderHeader() {
@@ -76,6 +68,7 @@ class ContactList extends React.Component {
     const {
       modifiedData,
     } = this.state;
+    const { onDelete } = this.props;
     return (
       <View style={styles.listContainer}>
         <FlatList
@@ -83,14 +76,14 @@ class ContactList extends React.Component {
           numColumns={1}
           data={modifiedData}
           ListEmptyComponent={() => (
-            <View style={{ alignItems: 'center', marginTop: 50, justifyContent: 'center' }}>
+            <View style={{ alignItems: 'center', marginTop: 30, justifyContent: 'center' }}>
               <Text style={styles.title}>No Contacts Found</Text>
               <Image source={LoadingContactsImage} style={styles.image} resizeMode="cover" />
             </View>
           )}
           renderItem={({
             item: {
-              id, name, phoneNumber, image,
+              id, name, phoneNumber, image, fileName,
             },
           }) => (
             <View>
@@ -99,6 +92,8 @@ class ContactList extends React.Component {
                 name={name}
                 phoneNumber={phoneNumber}
                 thumbnailPhoto={image}
+                fileName={fileName}
+                onDelete={onDelete}
               />
             </View>
           )}
@@ -111,11 +106,12 @@ class ContactList extends React.Component {
 
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     phoneNumber: PropTypes.string,
-    thumbnailPhoto: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
   })).isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default ContactList;

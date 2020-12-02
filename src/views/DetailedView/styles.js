@@ -26,7 +26,4 @@ export default StyleSheet.create({
     justifyContent: 'center',
     height: 5,
   },
-  phoneIcon: {
-
-  },
 });

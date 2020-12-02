@@ -17,17 +17,14 @@ export const cleanDirectory = async () => {
   await FileSystem.deleteAsync(contactDirectory);
 };
 
-export const loadContact = async (fileName) => await onException(() => FileSystem.readAsStringAsync(`${contactDirectory}/${fileName}`));
+export const loadContact = async (fileName) => onException(() => FileSystem.readAsStringAsync(`${contactDirectory}/${fileName}`));
 
-export const addContact = async (contact, id) => {
-  const fileName = `${contact.name.trim()}-${id}.json`;
-  fileUri = `${contactDirectory}/${fileName}`;
-  contents = JSON.stringify(contact);
-  await FileSystem.writeAsStringAsync(fileUri, contents);
+export const addContact = async (contact) => {
+  const fileUri = `${contactDirectory}/${contact.fileName}`;
+  await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(contact));
 };
 
-export const remove = async (name, id) => {
-  const fileName = `${name.trim()}-${id}.json`;
+export const remove = async (fileName) => {
   await onException(() => FileSystem.deleteAsync(`${contactDirectory}/${fileName}`, { idempotent: true }));
 };
 
