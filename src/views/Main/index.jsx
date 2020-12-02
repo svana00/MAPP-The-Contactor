@@ -88,7 +88,7 @@ class Main extends React.Component {
       setTimeout(() => {
         Alert.alert(
           'Blank Fields',
-          'Please do not leave any fields blank',
+          'Please do not leave any fields blank.',
           [
             {
               text: 'OK',
@@ -117,8 +117,8 @@ class Main extends React.Component {
       });
       setTimeout(() => {
         Alert.alert(
-          'Contact created',
-          'Your contact has been added to the system',
+          'Contact added',
+          'Your contact has been saved.',
           [
             {
               text: 'OK',

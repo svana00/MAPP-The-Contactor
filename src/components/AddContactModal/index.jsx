@@ -34,6 +34,12 @@ class AddContactModal extends React.Component {
       isOpen, closeModal, takePhoto, selectFromCameraRoll, oldName, oldPhone, isBeingModified,
     } = this.props;
     const { name, phoneNumber } = this.state;
+    let title;
+    if (isBeingModified) {
+      title = <Text style={styles.modalTitleText}>Edit Contact</Text>;
+    } else {
+      title = <Text style={styles.modalTitleText}>Add Contact</Text>;
+    }
 
     return (
       <Modal
@@ -43,7 +49,7 @@ class AddContactModal extends React.Component {
       >
         <View style={styles.modalStyle}>
           <Text style={styles.modalTitleText}>
-            Add Contact
+            {title}
           </Text>
           <View style={styles.buttonContainer}>
             <View>
