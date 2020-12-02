@@ -50,6 +50,7 @@ class Main extends React.Component {
 
   async TestContacts() {
     const { contactsData } = await importContactsFromPhone();
+    this.setState({ isConfirmationModalOpen: false })
   }
 
   async fetchContacts() {
@@ -199,7 +200,7 @@ class Main extends React.Component {
           )}
         <ConfirmationModal
           isOpen={isConfirmationModalOpen}
-          onConfirm={() => this.importContactsFromPhone()}
+          onConfirm={() => this.TestContacts()}
           closeModal={() => this.setState({ isConfirmationModalOpen: false })}
         />
         <AddContactModal
