@@ -71,13 +71,15 @@ class Main extends React.Component {
     const { thumbnailPhoto } = this.state;
     const id = `${name.trim()}${number.trim()}`;
     const alreadyThere = contacts.filter((contact) => contact.id == id);
+    let filename = `${name.trim()}-${id.trim()}.json`;
+    filename = filename.replace(/[^\w\s]/gi, '');
     if (alreadyThere.length === 0) {
       const contact = {
         id,
         name,
         phoneNumber: number.toString(),
         image: thumbnailPhoto,
-        fileName: `${name.trim()}-${id.trim()}.json`,
+        filename,
       };
       contacts = [...contacts, contact];
       const sortedContacts = await contacts.sort((a, b) => a.name.localeCompare(b.name));
@@ -131,13 +133,15 @@ class Main extends React.Component {
     } else {
       const id = `${name.trim()}${phoneNumber.trim()}`;
       const alreadyThere = contacts.filter((contact) => contact.id == id);
+      let filename = `${name.trim()}-${id.trim()}.json`;
+      filename = filename.replace(/[^\w\s]/gi, '');
       if (alreadyThere.length === 0) {
         const contact = {
           id,
           name,
           phoneNumber: phoneNumber.toString(),
           image: thumbnailPhoto,
-          fileName: `${name.trim()}-${id.trim()}.json`,
+          filename,
         };
         contacts = [...contacts, contact];
         const sortedContacts = await contacts.sort((a, b) => a.name.localeCompare(b.name));
