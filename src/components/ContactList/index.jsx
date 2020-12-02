@@ -68,7 +68,7 @@ class ContactList extends React.Component {
     const {
       modifiedData,
     } = this.state;
-    const { onDelete, onPress } = this.props;
+    const { onDelete } = this.props;
     return (
       <View style={styles.listContainer}>
         <FlatList
@@ -94,7 +94,6 @@ class ContactList extends React.Component {
                 thumbnailPhoto={image}
                 fileName={fileName}
                 onDelete={onDelete}
-                onPress={onPress}
               />
               <View style={styles.buttonContainer}>
                 <View style={styles.buttonItem}>
@@ -117,6 +116,7 @@ ContactList.propTypes = {
     phoneNumber: PropTypes.string,
     image: PropTypes.string.isRequired,
   })).isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default ContactList;

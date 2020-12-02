@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Alert } from 'react-native';
 import * as Contacts from 'expo-contacts';
+import PropTypes from 'prop-types';
 import AddContactModal from '../../components/AddContactModal';
 import ContactList from '../../components/ContactList';
 import LoadingScreen from '../../components/LoadingScreen';
@@ -25,8 +26,9 @@ class Main extends React.Component {
 
   async componentDidMount() {
     // await this.loadContacts();
+    const { navigation } = this.props;
     await this.fetchContacts();
-    this.willFocusSubscription = this.props.navigation.addListener(
+    this.willFocusSubscription = navigation.addListener(
       'willFocus',
       async () => {
         this.setState({ isLoading: true });
@@ -135,7 +137,10 @@ class Main extends React.Component {
     const { contacts } = this.state;
     this.setState({ isLoading: true });
     await remove(fileName);
-    await this.setState({ isLoading: false, contacts: contacts.filter((contact) => contact.fileName !== fileName) });
+    await this.setState({
+      isLoading: false,
+      contacts: contacts.filter((contact) => contact.fileName !== fileName),
+    });
   }
 
   // async modify(id, name, phoneNumber) {
@@ -178,7 +183,6 @@ class Main extends React.Component {
                 contacts={contacts}
                 updateData={(filteredData) => this.setData(filteredData)}
                 onDelete={(fileName) => this.deleteContact(fileName)}
-                onLongPress={(id, name) => this.onContactLongPress(id, name)}
               />
             </>
           )}
@@ -199,5 +203,12 @@ class Main extends React.Component {
     );
   }
 }
+
+Main.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+    addListener: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Main;

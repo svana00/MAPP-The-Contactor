@@ -93,7 +93,7 @@ class AddContactModal extends React.Component {
 }
 
 AddContactModal.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   oldName: PropTypes.string.isRequired,
   oldPhone: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
@@ -104,5 +104,7 @@ AddContactModal.propTypes = {
   onModify: PropTypes.func.isRequired,
   isBeingModified: PropTypes.bool.isRequired,
 };
+
+AddContactModal.defaultProps = { oldPhone: '' };
 
 export default AddContactModal;

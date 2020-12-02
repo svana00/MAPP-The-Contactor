@@ -17,7 +17,7 @@ export const cleanDirectory = async () => {
   await FileSystem.deleteAsync(contactDirectory);
 };
 
-export const loadContact = async (fileName) => await onException(() => FileSystem.readAsStringAsync(`${contactDirectory}/${fileName}`));
+export const loadContact = async (fileName) => onException(() => FileSystem.readAsStringAsync(`${contactDirectory}/${fileName}`));
 
 export const addContact = async (contact) => {
   const fileUri = `${contactDirectory}/${contact.fileName}`;
@@ -40,7 +40,6 @@ export const getAllContacts = async () => {
   await setupDirectory();
 
   const result = await onException(() => FileSystem.readDirectoryAsync(contactDirectory));
-  console.log(result);
   return Promise.all(result.map(async (fileName) => ({
     contact: JSON.parse(await loadContact(fileName)),
   })));

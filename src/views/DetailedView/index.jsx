@@ -3,13 +3,11 @@ import {
   View, Text, Image, TouchableOpacity, Linking,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { withNavigation } from 'react-navigation';
-import { HeaderBackButton } from 'react-navigation-stack';
 import MainToolbar from '../../components/MainToolbar';
 import styles from './styles';
 import LoadingScreen from '../../components/LoadingScreen';
 import {
-  getAllContacts, addContact, remove, cleanDirectory,
+  addContact, remove,
 } from '../../services/fileService';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
 import AddContactModal from '../../components/AddContactModal';
@@ -44,6 +42,10 @@ class DetailedView extends React.Component {
     });
   }
 
+  async setupModify() {
+    this.setState({ isEditModalOpen: true, isBeingModified: true });
+  }
+
   async takePhoto() {
     const photo = await takePhoto();
     if (photo.length > 0) { this.setState({ newThumbnail: photo }); }
@@ -71,13 +73,13 @@ class DetailedView extends React.Component {
     const oldFileName = `${name.trim()}-${id.trim()}.json`;
     await remove(oldFileName);
     await this.setState({
-      name: newName, phoneNumber: newPhone, thumbnailPhoto: newImage, isBeingModified: false, isEditModalOpen: false,
+      name: newName,
+      phoneNumber: newPhone,
+      thumbnailPhoto: newImage,
+      isBeingModified: false,
+      isEditModalOpen: false,
     });
     await addContact(modified);
-  }
-
-  async setupModify() {
-    this.setState({ isEditModalOpen: true, isBeingModified: true });
   }
 
   render() {
