@@ -70,15 +70,15 @@ class Main extends React.Component {
     const { thumbnailPhoto } = this.state;
     const id = `${name.trim()}${phoneNumber.trim()}`;
     const alreadyThere = contacts.filter((contact) => contact.id == id);
-    let filename = `${name.trim()}-${id.trim()}.json`;
-    filename = filename.replace(/[^\w\s]/gi, '');
+    let fileName = `${name.trim()}-${id.trim()}.json`;
+    fileName = fileName.replace(/[^\w\s]/gi, '');
     if (alreadyThere.length === 0) {
       const contact = {
         id,
         name,
         phoneNumber: phoneNumber.toString(),
         image: thumbnailPhoto,
-        filename,
+        fileName,
       };
       contacts = [...contacts, contact];
       const sortedContacts = await contacts.sort((a, b) => a.name.localeCompare(b.name));
