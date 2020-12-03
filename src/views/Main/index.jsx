@@ -65,11 +65,11 @@ class Main extends React.Component {
     this.setState({ isConfirmationModalOpen: false, isLoading: false });
   }
 
-  async addFromPhone(name, number) {
+  async addFromPhone(name, phoneNumber) {
     this.setState({ isLoading: true });
     let { contacts } = this.state;
     const { thumbnailPhoto } = this.state;
-    const id = `${name.trim()}${number.trim()}`;
+    const id = `${name.trim()}${phoneNumber.trim()}`;
     const alreadyThere = contacts.filter((contact) => contact.id == id);
     let filename = `${name.trim()}-${id.trim()}.json`;
     filename = filename.replace(/[^\w\s]/gi, '');
@@ -77,7 +77,7 @@ class Main extends React.Component {
       const contact = {
         id,
         name,
-        phoneNumber: number.toString(),
+        phoneNumber: phoneNumber.toString(),
         image: thumbnailPhoto,
         filename,
       };
