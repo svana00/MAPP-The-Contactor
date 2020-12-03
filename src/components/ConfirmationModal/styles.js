@@ -31,7 +31,13 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     flexDirection: 'row',
-    paddingBottom: 5,
+  },
+  buttonItem: {
+    padding: 15,
+    justifyContent: 'center',
+  },
+  importIcon: {
+    padding: 0,
   },
   import: {
     color: 'green',

@@ -15,14 +15,22 @@ const ConfirmationModal = ({
     isOpen={isOpen}
     closeModal={closeModal}
   >
-    <AntDesign name="download" size={70} color="black" />
+    <AntDesign style={styles.importIcon} name="download" size={70} color="black" />
 
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
 
         <View style={styles.buttonItem}>
-          <TouchableHighlight onPress={() => { onConfirm(); }}>
+          <TouchableHighlight onPress={() => { closeModal(); }}>
             <Text style={styles.import}>
+              Cancel
+            </Text>
+          </TouchableHighlight>
+        </View>
+
+        <View style={styles.buttonItem}>
+          <TouchableHighlight onPress={() => { onConfirm(); }}>
+            <Text style={styles.cancel}>
               Import
             </Text>
           </TouchableHighlight>
