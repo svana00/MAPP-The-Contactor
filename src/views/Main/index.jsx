@@ -57,7 +57,6 @@ class Main extends React.Component {
         var { number } = data[i].phoneNumbers[0];
       }
       if (data[i].image !== undefined) {
-        console.log('HÉRNAR PABBI', data[i].image);
         await this.setState({ thumbnailPhoto: data[i].image.uri });
       }
       await this.addFromPhone(name, number);
@@ -71,14 +70,14 @@ class Main extends React.Component {
     const { thumbnailPhoto } = this.state;
     const id = `${name.trim()}${phoneNumber.trim()}`;
     const alreadyThere = contacts.filter((contact) => contact.id == id);
-    const filename = `${name.trim().replace(/[^\w\s]/gi, '')}-${id.trim().replace(/[^\w\s]/gi, '')}.json`;
+    const fileName = `${name.trim().replace(/[^\w\s]/gi, '')}-${id.trim().replace(/[^\w\s]/gi, '')}.json`;
     if (alreadyThere.length === 0) {
       const contact = {
         id,
         name,
         phoneNumber: phoneNumber.toString(),
         image: thumbnailPhoto,
-        filename,
+        fileName,
       };
       contacts = [...contacts, contact];
       const sortedContacts = await contacts.sort((a, b) => a.name.localeCompare(b.name));
