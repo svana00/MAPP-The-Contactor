@@ -71,8 +71,7 @@ class Main extends React.Component {
     const { thumbnailPhoto } = this.state;
     const id = `${name.trim()}${phoneNumber.trim()}`;
     const alreadyThere = contacts.filter((contact) => contact.id == id);
-    let filename = `${name.trim()}-${id.trim()}.json`;
-    filename = filename.replace(/[^\w\s]/gi, '');
+    const filename = `${name.trim().replace(/[^\w\s]/gi, '')}-${id.trim().replace(/[^\w\s]/gi, '')}.json`;
     if (alreadyThere.length === 0) {
       const contact = {
         id,
