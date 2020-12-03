@@ -15,7 +15,13 @@ const MainToolbar = ({
         </TouchableHighlight>
       </View>
     )
-      : null}
+      : (
+        <View style={styles.toolbarAction}>
+          <TouchableHighlight onPress={onImport} style={{ padding: 10 }}>
+            <Text style={styles.clear}>Hi</Text>
+          </TouchableHighlight>
+        </View>
+      )}
     <View style={styles.toolbarAction}>
       <Text style={styles.toolbarActionText}>{title}</Text>
     </View>

@@ -49,12 +49,12 @@ class Main extends React.Component {
 
   async TestContacts() {
     const data = await importContactsFromPhone();
-    for (let i = 0; i < data.length; i += 1) {
+    for (const i in data) {
       const { name } = data[i];
       if (data[i].phoneNumbers === undefined) {
         continue;
       } else {
-        const { number } = data[i].phoneNumbers[0];
+        var { number } = data[i].phoneNumbers[0];
       }
       if (data[i].image !== undefined) {
         await this.setState({ thumbnailPhoto: data[i].image.uri });
@@ -117,6 +117,30 @@ class Main extends React.Component {
   async selectFromCameraRoll() {
     const photo = await selectFromCameraRoll();
     if (photo.length > 0) { this.setState({ thumbnailPhoto: photo }); }
+  }
+
+  async modify(id, name, phoneNumber) {
+    console.log('hi');
+    console.log(id);
+    console.log(name);
+    const { thumbnailPhoto, contacts } = this.state;
+    let newName = name;
+    let newPhone = phoneNumber;
+    let newImage = thumbnailPhoto;
+    const old = contacts.filter((contact) => contact.id === id);
+    const rest = contacts.filter((contact) => contact.id !== id);
+    if (newName === '') { newName = old.name; }
+    if (newPhone === '') { newPhone = old.phoneNumber; }
+    if (newImage === '') { newImage = old.image; }
+    const modified = {
+      id,
+      name: newName,
+      phoneNumber: newPhone,
+      image: newImage,
+    };
+    await this.setState({ contacts: [...rest, modified] });
+    await addContact(modified, id);
+    await remove(old.name, id);
   }
 
   async addContact(name, phoneNumber) {
