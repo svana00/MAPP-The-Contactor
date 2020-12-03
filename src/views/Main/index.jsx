@@ -8,7 +8,7 @@ import MainToolbar from '../../components/MainToolbar';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
 import {
-  getAllContacts, addContact, remove,
+  getAllContacts, addContact, remove, cleanDirectory,
 } from '../../services/fileService';
 import { importContactsFromPhone } from '../../services/getContactsFileService';
 
@@ -120,9 +120,6 @@ class Main extends React.Component {
   }
 
   async modify(id, name, phoneNumber) {
-    console.log('hi');
-    console.log(id);
-    console.log(name);
     const { thumbnailPhoto, contacts } = this.state;
     let newName = name;
     let newPhone = phoneNumber;
@@ -140,6 +137,7 @@ class Main extends React.Component {
     };
     await this.setState({ contacts: [...rest, modified] });
     await addContact(modified, id);
+    old.name = old.name.trim().replace(/[^\w\s]/gi, '');
     await remove(old.name, id);
   }
 

@@ -21,6 +21,7 @@ class AddContactModal extends React.Component {
     const {
       id, onModify, isBeingModified, onSubmit,
     } = this.props;
+
     if (isBeingModified) {
       onModify(id, name, phoneNumber);
     } else {
