@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, Text, Image, TouchableOpacity, Button,
+  View, Text, Image, TouchableOpacity,
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
@@ -50,6 +50,8 @@ ContactListItem.propTypes = {
   name: PropTypes.string.isRequired,
   thumbnailPhoto: PropTypes.string.isRequired,
   phoneNumber: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  fileName: PropTypes.string.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,

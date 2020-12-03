@@ -8,7 +8,7 @@ import MainToolbar from '../../components/MainToolbar';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
 import {
-  getAllContacts, addContact, remove, cleanDirectory
+  getAllContacts, addContact, remove,
 } from '../../services/fileService';
 import { importContactsFromPhone } from '../../services/getContactsFileService';
 
@@ -49,19 +49,19 @@ class Main extends React.Component {
 
   async TestContacts() {
     const data = await importContactsFromPhone();
-    for (const i in data) {
+    for (let i = 0; i < data.length; i += 1) {
       const { name } = data[i];
-      if (data[i].phoneNumbers == undefined) {
+      if (data[i].phoneNumbers === undefined) {
         continue;
       } else {
-        var { number } = data[i].phoneNumbers[0];
+        const { number } = data[i].phoneNumbers[0];
       }
       if (data[i].image !== undefined) {
         await this.setState({ thumbnailPhoto: data[i].image.uri });
       }
       await this.addFromPhone(name, number);
     }
-    this.setState({ isConfirmationModalOpen: false, isLoading: false, thumbnailPhoto: 'http://www.clker.com/cliparts/d/L/P/X/z/i/no-image-icon-md.png'});
+    this.setState({ isConfirmationModalOpen: false, isLoading: false, thumbnailPhoto: 'http://www.clker.com/cliparts/d/L/P/X/z/i/no-image-icon-md.png' });
   }
 
   async addFromPhone(name, phoneNumber) {
@@ -69,15 +69,15 @@ class Main extends React.Component {
     let { contacts } = this.state;
     const { thumbnailPhoto } = this.state;
 
-    phoneNumber = phoneNumber.replace(/\s/g, '');
+    const spacelessPhoneNumber = phoneNumber.replace(/\s/g, '');
     let newName = name.replace(/\s/g, '');
 
     newName = newName.replace(/[^\w\s]/gi, '');
 
-    const id = `${newName.trim()}${phoneNumber.trim()}`;
+    const id = `${newName.trim()}${spacelessPhoneNumber.trim()}`;
     const newId = id.replace(/[^\w\s]/gi, '');
 
-    const alreadyThere = contacts.filter((contact) => contact.id == id);
+    const alreadyThere = contacts.filter((contact) => contact.id === id);
     const fileName = `${newName.trim()}-${newId.trim()}.json`;
 
     if (alreadyThere.length === 0) {
@@ -139,7 +139,7 @@ class Main extends React.Component {
       }, 500);
     } else {
       const id = `${name.trim()}${phoneNumber.trim()}`;
-      const alreadyThere = contacts.filter((contact) => contact.id == id);
+      const alreadyThere = contacts.filter((contact) => contact.id === id);
       const fileName = `${name.trim().replace(/[^\w\s]/gi, '')}-${id.trim().replace(/[^\w\s]/gi, '')}.json`;
       if (alreadyThere.length === 0) {
         const contact = {
@@ -200,23 +200,6 @@ class Main extends React.Component {
     });
   }
 
-  // async modify(id, name, phoneNumber) {
-  //   const { thumbnailPhoto, contacts } = this.state;
-  //   let newName = name;
-  //   let newPhone = phoneNumber;
-  //   let newImage = thumbnailPhoto;
-  //   const old = contacts.filter((contact) => contact.id === id);
-  //   const rest = contacts.filter((contact) => contact.id !== id);
-  //   if (newName === '') { newName = old.name; }
-  //   if (newPhone === '') { newPhone = old.phoneNumber; }
-  //   if (newImage === '') { newImage = old.image; }
-  //   const modified = {
-  //     id, name: newName, phoneNumber: newPhone, image: newImage,
-  //   };
-  //   await this.setState({ contacts: [...rest, modified] });
-  //   await addContact(modified, id);
-  //   await remove(old.name, id);
-  // }
   render() {
     const {
       contacts,
