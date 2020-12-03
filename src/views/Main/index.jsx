@@ -57,7 +57,6 @@ class Main extends React.Component {
         var { number } = data[i].phoneNumbers[0];
       }
       if (data[i].image !== undefined) {
-        console.log('HÉRNAR PABBI', data[i].image);
         await this.setState({ thumbnailPhoto: data[i].image.uri });
       }
       await this.addFromPhone(name, number);
