@@ -8,7 +8,7 @@ import MainToolbar from '../../components/MainToolbar';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
 import {
-  getAllContacts, addContact, remove, cleanDirectory,
+  getAllContacts, addContact, remove, cleanDirectory
 } from '../../services/fileService';
 import { importContactsFromPhone } from '../../services/getContactsFileService';
 
@@ -68,9 +68,18 @@ class Main extends React.Component {
     this.setState({ isLoading: true });
     let { contacts } = this.state;
     const { thumbnailPhoto } = this.state;
-    const id = `${name.trim()}${phoneNumber.trim()}`;
+
+    phoneNumber = phoneNumber.replace(/\s/g, '');
+    let newName = name.replace(/\s/g, '');
+
+    newName = newName.replace(/[^\w\s]/gi, '');
+
+    const id = `${newName.trim()}${phoneNumber.trim()}`;
+    const newId = id.replace(/[^\w\s]/gi, '');
+
     const alreadyThere = contacts.filter((contact) => contact.id == id);
-    const fileName = `${name.trim().replace(/[^\w\s]/gi, '')}-${id.trim().replace(/[^\w\s]/gi, '')}.json`;
+    const fileName = `${newName.trim()}-${newId.trim()}.json`;
+
     if (alreadyThere.length === 0) {
       const contact = {
         id,
@@ -131,15 +140,14 @@ class Main extends React.Component {
     } else {
       const id = `${name.trim()}${phoneNumber.trim()}`;
       const alreadyThere = contacts.filter((contact) => contact.id == id);
-      let filename = `${name.trim()}-${id.trim()}.json`;
-      filename = filename.replace(/[^\w\s]/gi, '');
+      const fileName = `${name.trim().replace(/[^\w\s]/gi, '')}-${id.trim().replace(/[^\w\s]/gi, '')}.json`;
       if (alreadyThere.length === 0) {
         const contact = {
           id,
           name,
           phoneNumber: phoneNumber.toString(),
           image: thumbnailPhoto,
-          filename,
+          fileName,
         };
         contacts = [...contacts, contact];
         const sortedContacts = await contacts.sort((a, b) => a.name.localeCompare(b.name));
