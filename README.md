@@ -16,3 +16,4 @@ The team consists of 3 people:
 - A user can import contacts from the OS.
 - A user can add an image with either camera or he gallery.
 - A user can make a phone call to someone within the phonebook.
+- A user can delete each contact from the main menu.

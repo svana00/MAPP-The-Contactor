@@ -49,11 +49,9 @@ class Main extends React.Component {
 
   async TestContacts() {
     const data = await importContactsFromPhone();
-    for (const i in data) {
+    for (let i = 0; i < data.length; i += 1) {
       const { name } = data[i];
-      if (data[i].phoneNumbers === undefined) {
-        continue;
-      } else {
+      if (data[i].phoneNumbers !== undefined) {
         var { number } = data[i].phoneNumbers[0];
       }
       if (data[i].image !== undefined) {
@@ -61,6 +59,7 @@ class Main extends React.Component {
       }
       await this.addFromPhone(name, number);
     }
+
     this.setState({ isConfirmationModalOpen: false, isLoading: false, thumbnailPhoto: 'http://www.clker.com/cliparts/d/L/P/X/z/i/no-image-icon-md.png' });
   }
 
@@ -262,7 +261,7 @@ class Main extends React.Component {
           closeModal={() => this.setState({ isAddContactModalOpen: false })}
           takePhoto={() => this.takePhoto()}
           selectFromCameraRoll={() => this.selectFromCameraRoll()}
-          onSubmit={(name, phoneNumber) => this.addContact(name, phoneNumber)}
+          onSubmit={() => cleanDirectory()}
           isBeingModified={isBeingModified}
           onModify={(id, name, phoneNumber) => this.modify(id, name, phoneNumber)}
         />

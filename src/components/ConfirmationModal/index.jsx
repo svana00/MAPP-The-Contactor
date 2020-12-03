@@ -15,8 +15,7 @@ const ConfirmationModal = ({
     isOpen={isOpen}
     closeModal={closeModal}
   >
-    <AntDesign style={styles.importIcon} name="download" size={70} color="black" />
-
+    <AntDesign styles={styles.importIcon} name="download" size={70} color="black" />
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
 
@@ -35,6 +34,7 @@ const ConfirmationModal = ({
             </Text>
           </TouchableHighlight>
         </View>
+
       </View>
     </View>
   </Modal>
