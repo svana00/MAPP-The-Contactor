@@ -62,7 +62,7 @@ class Main extends React.Component {
       }
       await this.addFromPhone(name, number);
     }
-    this.setState({ isConfirmationModalOpen: false, isLoading: false });
+    this.setState({ isConfirmationModalOpen: false, isLoading: false, thumbnailPhoto: 'http://www.clker.com/cliparts/d/L/P/X/z/i/no-image-icon-md.png'});
   }
 
   async addFromPhone(name, phoneNumber) {
