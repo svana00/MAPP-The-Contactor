@@ -53,11 +53,11 @@ class Main extends React.Component {
       const { name } = data[i];
       if (data[i].phoneNumbers !== undefined) {
         var { number } = data[i].phoneNumbers[0];
+        if (data[i].image !== undefined) {
+          await this.setState({ thumbnailPhoto: data[i].image.uri });
+        }
+        await this.addFromPhone(name, number);
       }
-      if (data[i].image !== undefined) {
-        await this.setState({ thumbnailPhoto: data[i].image.uri });
-      }
-      await this.addFromPhone(name, number);
     }
 
     this.setState({ isConfirmationModalOpen: false, isLoading: false, thumbnailPhoto: 'http://www.clker.com/cliparts/d/L/P/X/z/i/no-image-icon-md.png' });
