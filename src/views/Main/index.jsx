@@ -52,7 +52,7 @@ class Main extends React.Component {
     for (let i = 0; i < data.length; i += 1) {
       const { name } = data[i];
       if (data[i].phoneNumbers !== undefined) {
-        var { number } = data[i].phoneNumbers[0];
+        const { number } = data[i].phoneNumbers[0];
         if (data[i].image !== undefined) {
           await this.setState({ thumbnailPhoto: data[i].image.uri });
         }
@@ -165,7 +165,7 @@ class Main extends React.Component {
     } else {
       const id = `${name.trim()}${phoneNumber.trim()}`;
       const alreadyThere = contacts.filter((contact) => contact.id === id);
-      const fileName = `${name.trim().replace(/[^\w\s]/gi, '').replace(/\s/g, '')}-${id.trim().replace(/[^\w\s]/gi, '').replace(/\s/g, '')}.json`
+      const fileName = `${name.trim().replace(/[^\w\s]/gi, '').replace(/\s/g, '')}-${id.trim().replace(/[^\w\s]/gi, '').replace(/\s/g, '')}.json`;
       if (alreadyThere.length === 0) {
         const contact = {
           id,
