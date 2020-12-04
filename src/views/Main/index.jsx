@@ -8,7 +8,7 @@ import MainToolbar from '../../components/MainToolbar';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import { takePhoto, selectFromCameraRoll } from '../../services/imageService';
 import {
-  getAllContacts, addContact, remove, cleanDirectory,
+  getAllContacts, addContact, remove,
 } from '../../services/fileService';
 import { importContactsFromPhone } from '../../services/getContactsFileService';
 
@@ -128,6 +128,7 @@ class Main extends React.Component {
     if (newName === '') { newName = old.name; }
     if (newPhone === '') { newPhone = old.phoneNumber; }
     if (newImage === '') { newImage = old.image; }
+
     const modified = {
       id,
       name: newName,
@@ -137,6 +138,7 @@ class Main extends React.Component {
     await this.setState({ contacts: [...rest, modified] });
     await addContact(modified, id);
     old.name = old.name.trim().replace(/[^\w\s]/gi, '');
+    old.name = old.name.replace(/\s/g, '');
     await remove(old.name, id);
   }
 
@@ -144,6 +146,7 @@ class Main extends React.Component {
     this.setState({ isLoading: true });
     let { contacts } = this.state;
     const { thumbnailPhoto } = this.state;
+
     if (name.length === 0 || phoneNumber.length === 0) {
       setTimeout(() => {
         Alert.alert(
@@ -158,10 +161,11 @@ class Main extends React.Component {
           { cancelable: false },
         );
       }, 500);
+      this.setState({ isLoading: false });
     } else {
       const id = `${name.trim()}${phoneNumber.trim()}`;
       const alreadyThere = contacts.filter((contact) => contact.id === id);
-      const fileName = `${name.trim().replace(/[^\w\s]/gi, '')}-${id.trim().replace(/[^\w\s]/gi, '')}.json`;
+      const fileName = `${name.trim().replace(/[^\w\s]/gi, '').replace(/\s/g, '')}-${id.trim().replace(/[^\w\s]/gi, '').replace(/\s/g, '')}.json`
       if (alreadyThere.length === 0) {
         const contact = {
           id,
@@ -261,7 +265,7 @@ class Main extends React.Component {
           closeModal={() => this.setState({ isAddContactModalOpen: false })}
           takePhoto={() => this.takePhoto()}
           selectFromCameraRoll={() => this.selectFromCameraRoll()}
-          onSubmit={() => cleanDirectory()}
+          onSubmit={(name, phoneNumber) => this.addContact(name, phoneNumber)}
           isBeingModified={isBeingModified}
           onModify={(id, name, phoneNumber) => this.modify(id, name, phoneNumber)}
         />

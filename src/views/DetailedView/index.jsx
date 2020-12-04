@@ -69,12 +69,12 @@ class DetailedView extends React.Component {
 
     const spacelessPhoneNumber = phoneNumber.replace(/\s/g, '');
 
-    const newId = `${newName.trim().replace(/[^\w\s]/gi, '')}${spacelessPhoneNumber}`;
-    const newFile = `${newName.trim().replace(/[^\w\s]/gi, '')}-${newId.trim().replace(/[^\w\s]/gi, '')}.json`;
+    const newId = `${newName.trim().replace(/[^\w\s]/gi, '').replace(/\s/g, '')}${spacelessPhoneNumber}`;
+    const newFile = `${newName.trim().replace(/[^\w\s]/gi, '').replace(/\s/g, '')}-${newId.trim().replace(/[^\w\s]/gi, '').replace(/\s/g, '')}.json`;
     const modified = {
       id: newId, name: newName, phoneNumber: newPhone, image: newImage, fileName: newFile,
     };
-    const oldFileName = `${name.trim().replace(/[^\w\s]/gi, '')}-${id.trim().replace(/[^\w\s]/gi, '')}.json`;
+    const oldFileName = `${name.trim().replace(/[^\w\s]/gi, '').replace(/\s/g, '')}-${id.trim().replace(/[^\w\s]/gi, '').replace(/\s/g, '')}.json`;
     await remove(oldFileName);
     await this.setState({
       id: newId,
